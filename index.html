@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Strict Allman Formatting for CSS */
+        
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
         :root
@@ -36,7 +36,7 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Custom Scrollbar */
+    
         ::-webkit-scrollbar
         {
             width: 8px;
@@ -59,7 +59,7 @@
             background: #58a6ff;
         }
 
-        /* Subtle Grid Background */
+        
         .bg-grid-pattern
         {
             background-size: 32px 32px;
@@ -68,7 +68,7 @@
                 linear-gradient(to bottom, rgba(48, 54, 61, 0.22) 1px, transparent 1px);
         }
 
-        /* GitHub Dark Theme Utility Classes */
+        
         .gh-border
         {
             border: 1px solid #30363d;
@@ -80,7 +80,7 @@
             backdrop-filter: blur(12px);
         }
 
-        /* Scroll Reveal Animations */
+        
         .reveal
         {
             opacity: 0;
@@ -94,7 +94,7 @@
             transform: translateY(0);
         }
 
-        /* Blinking Cursor for Typing Effect */
+        
         .cursor::after
         {
             content: '▋';
@@ -112,7 +112,7 @@
             }
         }
 
-        /* Floating Animation for Profile Badges */
+        
         @keyframes floatSlow
         {
             0%, 100%
@@ -173,7 +173,7 @@
             left: 100%;
         }
 
-        /* 3D Tilt Card Base Styles */
+    
         .tilt-card
         {
             transition: transform 0.15s ease, box-shadow 0.2s ease;
@@ -181,7 +181,7 @@
             will-change: transform;
         }
 
-        /* Tech Badge Styling */
+    
         .tech-pill
         {
             transition: all 0.25s ease;
@@ -194,7 +194,7 @@
             box-shadow: 0 6px 20px -4px rgba(88, 166, 255, 0.25);
         }
 
-        /* Custom Toast Notification */
+        
         #toast-container
         {
             transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
@@ -203,12 +203,12 @@
 </head>
 <body class="antialiased selection:bg-[#58a6ff] selection:text-[#0d1117] bg-grid-pattern">
 
-    <!-- Top Scroll Progress Bar -->
+
     <div class="fixed top-0 left-0 w-full h-1 z-[60] bg-transparent">
         <div id="scroll-progress" class="h-full bg-gradient-to-r from-[#58a6ff] via-[#3fb950] to-[#bc8cff] w-0 transition-all duration-75"></div>
     </div>
 
-    <!-- Custom Toast Notification (No alert() used) -->
+    
     <div id="toast-container" class="fixed bottom-6 right-6 z-[70] pointer-events-none opacity-0 translate-y-4">
         <div class="gh-bg-card gh-border border-l-4 border-l-[#3fb950] text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
             <i id="toast-icon" class="fa-solid fa-circle-check text-[#3fb950] text-lg"></i>
@@ -216,7 +216,7 @@
         </div>
     </div>
 
-    <!-- Project Architecture Detail Modal -->
+    
     <div id="project-modal" class="fixed inset-0 z-[65] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
         <div class="gh-bg-card gh-border rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative animate-fadeIn">
             <button id="close-modal-btn" class="absolute top-5 right-5 w-9 h-9 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-gray-400 hover:text-white flex items-center justify-center transition-colors">
@@ -245,11 +245,11 @@
         </div>
     </div>
 
-    <!-- Sticky Responsive Navbar -->
+    
     <nav class="fixed w-full z-50 top-0 gh-border border-b bg-[#0d1117]/85 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Brand Logo -->
+            
                 <a href="#home" class="font-bold text-lg sm:text-xl tracking-tight text-white hover:text-[#58a6ff] transition-colors flex items-center gap-2.5">
                     <div class="relative">
                         <img src="https://github.com/m-b-sabbirr127.png" onerror="this.src='https://placehold.co/100x100/161b22/58a6ff?text=MB'" alt="Sabbir" class="w-9 h-9 rounded-full gh-border object-cover">
@@ -261,7 +261,7 @@
                     </div>
                 </a>
 
-                <!-- Desktop Navigation Links -->
+            
                 <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
                     <a href="#home" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">Home</a>
                     <a href="#about" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">About</a>
@@ -274,7 +274,7 @@
                     </a>
                 </div>
 
-                <!-- Mobile Hamburger Button -->
+                
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" aria-label="Toggle Menu" class="text-gray-300 hover:text-white p-2.5 rounded-lg bg-[#161b22] gh-border focus:outline-none">
                         <i id="mobile-menu-icon" class="fa-solid fa-bars text-lg"></i>
@@ -283,7 +283,7 @@
             </div>
         </div>
 
-        <!-- Mobile Dropdown Drawer -->
+        
         <div id="mobile-menu" class="hidden md:hidden bg-[#161b22] border-b border-[#30363d] px-4 pt-3 pb-5 space-y-2">
             <a href="#home" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
                 <i class="fa-solid fa-house w-6 text-[#58a6ff]"></i> Home
@@ -309,17 +309,17 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+
     <section id="home" class="pt-28 pb-16 md:pt-36 md:pb-24 px-4 sm:px-6 lg:px-8 min-h-[92vh] flex items-center relative overflow-hidden">
-        <!-- Ambient Glow Orbs -->
+        
         <div class="absolute top-16 left-10 w-72 h-72 sm:w-96 sm:h-96 bg-[#58a6ff]/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute bottom-12 right-10 w-72 h-72 sm:w-96 sm:h-96 bg-[#238636]/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-12 relative z-10">
             
-            <!-- Left Column: Intro & CTAs -->
+            
             <div class="w-full lg:w-3/5 text-center lg:text-left reveal">
-                <!-- Status Pill -->
+                
                 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#161b22] gh-border mb-5 text-xs sm:text-sm text-gray-300">
                     <span class="w-2 h-2 rounded-full bg-[#3fb950] animate-ping"></span>
                     <span class="font-mono-code">Open to Open Source & Algorithmic Collaboration</span>
@@ -330,7 +330,7 @@
                     <span class="block sm:inline text-[#58a6ff] font-semibold text-2xl sm:text-4xl lg:text-5xl mt-1 sm:mt-0">(Sabbir)</span>
                 </h1>
                 
-                <!-- Dynamic Typing Subheader -->
+            
                 <div class="h-10 sm:h-12 flex items-center justify-center lg:justify-start mb-5">
                     <h2 class="text-lg sm:text-2xl md:text-3xl text-gray-300 font-medium font-mono-code">
                         &gt; <span id="typing-text" class="text-[#58a6ff] font-semibold"></span><span class="cursor"></span>
@@ -341,7 +341,7 @@
                     Passionate about <strong class="text-white">Data Structures & Algorithms</strong>, <strong class="text-white">Advanced C++</strong>, and <strong class="text-white">High-Performance System Architecture</strong>. Relentlessly solving complex problems and crafting clean, efficient code.
                 </p>
 
-                <!-- Education Card Badge (No Semester/CGPA) -->
+                
                 <div class="gh-border border-l-4 border-l-[#3fb950] px-4 py-3 mb-8 bg-[#161b22]/90 rounded-r-xl inline-flex items-center gap-3.5 text-left max-w-full">
                     <div class="w-10 h-10 rounded-lg bg-[#238636]/20 flex items-center justify-center text-[#3fb950] shrink-0">
                         <i class="fa-solid fa-graduation-cap text-xl"></i>
@@ -354,7 +354,7 @@
                     </div>
                 </div>
                 
-                <!-- Action Buttons -->
+        
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
                     <a href="#projects" class="w-full sm:w-auto justify-center bg-[#238636] hover:bg-[#2ea043] text-white font-medium py-3 px-6 rounded-xl transition-all shadow-lg shadow-[#238636]/20 flex items-center gap-2">
                         <i class="fa-solid fa-code"></i> Explore Projects
@@ -367,7 +367,7 @@
                     </a>
                 </div>
 
-                <!-- Quick Highlights Strip -->
+                
                 <div class="grid grid-cols-3 gap-3 sm:gap-4 mt-10 pt-8 border-t border-[#30363d]/80 max-w-lg mx-auto lg:mx-0">
                     <div class="text-center lg:text-left">
                         <div class="text-xl sm:text-2xl font-bold text-white font-mono-code">C / C++</div>
@@ -384,31 +384,31 @@
                 </div>
             </div>
             
-            <!-- Right Column: Avatar & Floating Tech Badges -->
+        
             <div class="w-full lg:w-2/5 flex justify-center reveal">
                 <div class="relative group">
-                    <!-- Animated Glow Ring -->
+            
                     <div class="absolute -inset-1.5 bg-gradient-to-tr from-[#58a6ff] via-[#3fb950] to-[#bc8cff] rounded-full blur-md opacity-40 group-hover:opacity-75 transition duration-700"></div>
                     
-                    <!-- Main Avatar Image -->
+                    
                     <img src="https://github.com/m-b-sabbirr127.png" 
                          onerror="this.src='https://placehold.co/400x400/161b22/58a6ff?text=Sabbir'" 
                          alt="Md. Mostakim Billah (Sabbir)" 
                          class="relative w-52 h-52 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full gh-border border-4 border-[#161b22] shadow-2xl object-cover">
 
-                    <!-- Floating Badge 1: C++ -->
+                
                     <div class="animate-float-1 absolute -top-2 -left-4 sm:left-0 gh-bg-card gh-border px-3 py-1.5 rounded-xl shadow-xl flex items-center gap-2">
                         <i class="fa-solid fa-microchip text-[#58a6ff]"></i>
                         <span class="text-xs font-mono-code font-semibold text-white">C++ 46.2%</span>
                     </div>
 
-                    <!-- Floating Badge 2: Codeforces/CP -->
+            
                     <div class="animate-float-2 absolute top-1/2 -right-5 sm:-right-8 gh-bg-card gh-border px-3 py-1.5 rounded-xl shadow-xl flex items-center gap-2">
                         <i class="fa-solid fa-bolt text-[#d29922]"></i>
                         <span class="text-xs font-mono-code font-semibold text-white">DSA &amp; Graph</span>
                     </div>
 
-                    <!-- Floating Badge 3: Accepted Verdict -->
+                
                     <div class="animate-float-3 absolute -bottom-3 left-1/2 -translate-x-1/2 gh-bg-card border border-[#238636] px-3.5 py-1.5 rounded-full shadow-xl flex items-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-check-double text-[#3fb950] text-xs"></i>
                         <span class="text-xs font-mono-code font-semibold text-[#3fb950]">Verdict: Accepted</span>
@@ -419,21 +419,21 @@
         </div>
     </section>
 
-    <!-- About Me Bento Grid Section -->
+    
     <section id="about" class="py-20 sm:py-24 bg-[#161b22]/60 border-y border-[#30363d] px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-14 reveal">
-                <span class="text-xs font-mono-code uppercase tracking-widest text-[#58a6ff] bg-[#58a6ff]/10 px-3 py-1 rounded-full gh-border">README.md</span>
+                <span class="text-xs font-mono-code uppercase tracking-widest text-[#58a6ff] bg-[#58a6ff]/10 px-3 py-1 rounded-full gh-border">Scroll Down</span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-3">About Me</h2>
                 <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
                     A snapshot of what I am building, learning, and debugging right now.
                 </p>
             </div>
 
-            <!-- 6-Card Bento Grid with User's Exact Points -->
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 
-                <!-- Item 1 -->
+            
                 <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -451,7 +451,7 @@
                     </div>
                 </div>
 
-                <!-- Item 2 -->
+        
                 <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between lg:col-span-2">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -470,7 +470,7 @@
                     </div>
                 </div>
 
-                <!-- Item 3 -->
+        
                 <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between lg:col-span-2">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -489,7 +489,7 @@
                     </div>
                 </div>
 
-                <!-- Item 4 -->
+            
                 <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -507,7 +507,7 @@
                     </div>
                 </div>
 
-                <!-- Item 5 -->
+        
                 <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between lg:col-span-2">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -526,7 +526,7 @@
                     </div>
                 </div>
 
-                <!-- Item 6 -->
+        
                 <div class="bento-item border border-[#d29922]/70 bg-gradient-to-br from-[#d29922]/15 via-[#0d1117] to-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -548,7 +548,7 @@
         </div>
     </section>
 
-    <!-- Tech Stack & GitHub Language Distribution Section -->
+    
     <section id="skills" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 reveal">
@@ -559,7 +559,7 @@
                 </p>
             </div>
 
-            <!-- Interactive Filter Buttons -->
+        
             <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 reveal">
                 <button data-filter="all" class="stack-filter-btn active-filter bg-[#58a6ff] text-[#0d1117] font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl transition-all">
                     All Tech (23)
@@ -578,9 +578,9 @@
                 </button>
             </div>
 
-            <!-- Tech Stack Badges Grid (Matches Screenshot) -->
+            
             <div id="tech-stack-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 mb-14 reveal">
-                <!-- Languages -->
+        
                 <div data-category="lang" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center font-mono-code font-bold text-sm">C</div>
                     <div>
@@ -769,7 +769,7 @@
                 </div>
             </div>
 
-            <!-- GitHub Language Breakdown Bar (From User's Screenshot) -->
+            
             <div class="gh-bg-card gh-border rounded-2xl p-6 sm:p-8 reveal">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
                     <div>
@@ -783,7 +783,7 @@
                     </span>
                 </div>
 
-                <!-- Multi-segment Progress Bar -->
+                
                 <div class="w-full h-4 rounded-full overflow-hidden flex bg-[#0d1117] p-0.5 gh-border mb-6">
                     <div style="width: 46.23%" class="bg-[#f34b7d] h-full rounded-l-full transition-all duration-700" title="C++: 46.23%"></div>
                     <div style="width: 20.75%" class="bg-[#e34c26] h-full transition-all duration-700" title="HTML: 20.75%"></div>
@@ -793,7 +793,7 @@
                     <div style="width: 1.95%" class="bg-[#555555] h-full rounded-r-full transition-all duration-700" title="C: 1.95%"></div>
                 </div>
 
-                <!-- Legend Grid -->
+            
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs sm:text-sm">
                     <div class="flex items-center gap-2.5 bg-[#0d1117] p-3 rounded-xl gh-border">
                         <span class="w-3 h-3 rounded-full bg-[#f34b7d] shrink-0"></span>
@@ -842,7 +842,7 @@
         </div>
     </section>
 
-    <!-- Competitive Programming & C++ Template Section -->
+    
     <section id="cp" class="py-20 sm:py-24 bg-[#161b22]/60 border-y border-[#30363d] px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-14 reveal">
@@ -855,9 +855,9 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
-                <!-- Left 5 Cols: Online Judge Cards -->
+            
                 <div class="lg:col-span-5 space-y-4 reveal">
-                    <!-- Codeforces Card -->
+                    
                     <div class="bento-item gh-border bg-[#0d1117] p-5 sm:p-6 rounded-2xl">
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-3">
@@ -876,7 +876,7 @@
                         </p>
                     </div>
 
-                    <!-- BeeCrowd Card -->
+                    
                     <div class="bento-item gh-border bg-[#0d1117] p-5 sm:p-6 rounded-2xl">
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-3">
@@ -895,7 +895,7 @@
                         </p>
                     </div>
 
-                    <!-- Toph Card -->
+            
                     <div class="bento-item gh-border bg-[#0d1117] p-5 sm:p-6 rounded-2xl">
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-3">
@@ -916,9 +916,9 @@
                     </div>
                 </div>
 
-                <!-- Right 7 Cols: Interactive C++ Template & Judge Simulator -->
+            
                 <div class="lg:col-span-7 gh-border bg-[#0d1117] rounded-2xl overflow-hidden shadow-2xl reveal">
-                    <!-- Code Editor Top Bar -->
+                    
                     <div class="bg-[#161b22] px-4 py-3 border-b border-[#30363d] flex flex-wrap items-center justify-between gap-2">
                         <div class="flex items-center gap-2">
                             <span class="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
@@ -936,8 +936,7 @@
                         </div>
                     </div>
 
-                    <!-- Code Block -->
-                    <pre id="cpp-code-block" class="p-4 sm:p-6 text-xs sm:text-sm font-mono-code text-gray-300 overflow-x-auto leading-relaxed"><code><span class="text-gray-500">// Md. Mostakim Billah (Sabbir) - CP Fast I/O Template</span>
+                    
 <span class="text-[#ff7b72]">#include</span> <span class="text-[#a5d6ff]">&lt;iostream&gt;</span>
 <span class="text-[#ff7b72]">#include</span> <span class="text-[#a5d6ff]">&lt;vector&gt;</span>
 <span class="text-[#ff7b72]">#include</span> <span class="text-[#a5d6ff]">&lt;algorithm&gt;</span>
@@ -966,7 +965,7 @@
     <span class="text-[#ff7b72]">return</span> <span class="text-[#79c0ff]">0</span>;
 }</code></pre>
 
-                    <!-- Judge Verdict Output Bar -->
+                    
                     <div class="bg-[#161b22] px-4 py-3 border-t border-[#30363d] flex flex-wrap items-center justify-between gap-2 text-xs font-mono-code">
                         <div class="flex items-center gap-2">
                             <span class="text-gray-400">Judge Status:</span>
@@ -982,7 +981,7 @@
         </div>
     </section>
 
-    <!-- Featured Original Projects Section -->
+
     <section id="projects" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-14 reveal">
@@ -1000,7 +999,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 
-                <!-- Original Project 1: mini_fb_model -->
+                
                 <div class="tilt-card rounded-2xl reveal">
                     <div class="gh-border gh-bg-card rounded-2xl p-6 sm:p-8 h-full flex flex-col justify-between hover:border-[#58a6ff] transition-colors">
                         <div>
@@ -1039,7 +1038,7 @@
                     </div>
                 </div>
 
-                <!-- Original Project 2: agri_gpa_marks_calculator_2025 -->
+    
                 <div class="tilt-card rounded-2xl reveal">
                     <div class="gh-border gh-bg-card rounded-2xl p-6 sm:p-8 h-full flex flex-col justify-between hover:border-[#3fb950] transition-colors">
                         <div>
@@ -1078,7 +1077,7 @@
                     </div>
                 </div>
 
-                <!-- Original Project 3: playtime_counter -->
+        
                 <div class="tilt-card rounded-2xl reveal">
                     <div class="gh-border gh-bg-card rounded-2xl p-6 sm:p-8 h-full flex flex-col justify-between hover:border-[#bc8cff] transition-colors">
                         <div>
@@ -1121,7 +1120,7 @@
         </div>
     </section>
 
-    <!-- Interactive Developer Terminal Section (Works on Phone & PC!) -->
+    
     <section id="terminal-sec" class="py-20 sm:py-24 bg-[#161b22]/60 border-t border-[#30363d] px-4 sm:px-6 lg:px-8">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-10 reveal">
@@ -1132,7 +1131,7 @@
                 </p>
             </div>
 
-            <!-- Quick Command Pills for Mobile & Desktop Convenience -->
+        
             <div class="flex flex-wrap items-center justify-center gap-2 mb-5 reveal">
                 <button data-cmd="help" class="term-quick-btn text-xs font-mono-code bg-[#21262d] hover:bg-[#30363d] text-[#58a6ff] px-3 py-1.5 rounded-lg gh-border transition-colors">
                     $ help
@@ -1154,7 +1153,7 @@
                 </button>
             </div>
 
-            <!-- Terminal Window -->
+        
             <div class="gh-border bg-[#0d1117] rounded-2xl overflow-hidden shadow-2xl reveal">
                 <div class="bg-[#161b22] px-4 py-3 border-b border-[#30363d] flex items-center justify-between">
                     <div class="flex items-center gap-2">
@@ -1166,7 +1165,7 @@
                     <span class="text-[11px] font-mono-code text-gray-500">v2.6.0</span>
                 </div>
 
-                <!-- Terminal Output Log -->
+                
                 <div id="terminal-output" class="p-4 sm:p-6 h-72 sm:h-80 overflow-y-auto font-mono-code text-xs sm:text-sm space-y-3 text-gray-300">
                     <div>
                         <span class="text-[#3fb950]">Welcome to SabbirOS CLI!</span> Type <span class="text-[#58a6ff]">help</span> or tap a button above to explore.
@@ -1177,7 +1176,7 @@
                     </div>
                 </div>
 
-                <!-- Terminal Input Row -->
+            
                 <form id="terminal-form" class="bg-[#161b22]/90 px-4 py-3 border-t border-[#30363d] flex items-center gap-2 font-mono-code text-xs sm:text-sm">
                     <span class="text-[#3fb950] shrink-0">sabbir@github:~$</span>
                     <input id="terminal-input" type="text" placeholder="Type help, whoami, skills, projects, funfact, clear..." autocomplete="off" class="w-full bg-transparent text-white focus:outline-none placeholder-gray-600">
@@ -1189,12 +1188,11 @@
         </div>
     </section>
 
-    <!-- Connect & Socials Section -->
     <section id="contact" class="py-20 sm:py-24 border-t border-[#30363d] px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                 
-                <!-- Left Column: Socials & Direct Links -->
+            
                 <div class="lg:col-span-6 reveal">
                     <span class="text-xs font-mono-code uppercase tracking-widest text-[#58a6ff] bg-[#58a6ff]/10 px-3 py-1 rounded-full gh-border">Let's Connect</span>
                     <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">Collaborate &amp; Reach Out</h2>
@@ -1202,7 +1200,7 @@
                         Looking to collaborate on <strong class="text-white">Open Source Software, Algorithmic Tools, or Backend Systems</strong>? Or want to discuss a tricky C++ Graph / Dynamic Programming problem? Connect with me across my social platforms!
                     </p>
 
-                    <!-- Social Badges Matching Screenshot -->
+                
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5 mb-8">
                         <a href="https://github.com/m-b-sabbirr127" target="_blank" rel="noopener noreferrer" class="gh-bg-card gh-border hover:border-[#58a6ff] p-3.5 rounded-xl flex items-center gap-3 transition-all group">
                             <i class="fa-brands fa-github text-xl text-white group-hover:text-[#58a6ff]"></i>
@@ -1254,7 +1252,6 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Quick Ping Interactive Form -->
                 <div class="lg:col-span-6 reveal">
                     <div class="gh-bg-card gh-border rounded-2xl p-6 sm:p-8 shadow-xl">
                         <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
@@ -1299,7 +1296,7 @@
             <div class="flex items-center gap-3">
                 <img src="https://github.com/m-b-sabbirr127.png" onerror="this.src='https://placehold.co/80x80/161b22/58a6ff?text=MB'" alt="MB" class="w-7 h-7 rounded-full gh-border">
                 <p class="text-gray-400 text-xs sm:text-sm">
-                    &copy; <span id="footer-year">2026</span> <strong class="text-white">Md. Mostakim Billah (Sabbir)</strong>. Crafted for GitHub Pages.
+                    &copy; <span id="footer-year">2026</span> <strong class="text-white">Md. Mostakim Billah (Sabbir)</strong>
                 </p>
             </div>
             <div class="flex items-center gap-4">
@@ -1314,9 +1311,7 @@
     </footer>
 
     <script>
-        /* Strict Allman Formatting for JavaScript */
-
-        // --- Helper: Copy Text to Clipboard (iFrame Safe) ---
+        
         function copyToClipboard(text, successMsg)
         {
             const textarea = document.createElement("textarea");
@@ -1339,7 +1334,6 @@
             document.body.removeChild(textarea);
         }
 
-        // --- Helper: Show Custom Toast Notification ---
         let toastTimeout = null;
         function showToast(message)
         {
@@ -1362,7 +1356,6 @@
             }, 2800);
         }
 
-        // --- Mobile Navigation Menu Toggle ---
         function initMobileMenu()
         {
             const btn = document.getElementById("mobile-menu-btn");
@@ -1398,7 +1391,6 @@
             }
         }
 
-        // --- Top Scroll Progress Bar ---
         function initScrollProgress()
         {
             const progressBar = document.getElementById("scroll-progress");
@@ -1411,7 +1403,6 @@
             });
         }
 
-        // --- Scroll Reveal Animation ---
         function initScrollReveal()
         {
             const reveals = document.querySelectorAll(".reveal");
@@ -1490,7 +1481,6 @@
             setTimeout(typeEffect, typingDelay);
         }
 
-        // --- Tech Stack Category Filter ---
         function initTechStackFilter()
         {
             const buttons = document.querySelectorAll(".stack-filter-btn");
@@ -1527,7 +1517,6 @@
             }
         }
 
-        // --- Competitive Programming Template Actions ---
         function initCPActions()
         {
             const copyBtn = document.getElementById("copy-cpp-btn");
@@ -1589,7 +1578,6 @@
             });
         }
 
-        // --- Project Architecture Modal ---
         function initProjectModal()
         {
             const projectData = {
@@ -1767,7 +1755,6 @@
             }
         }
 
-        // --- 3D Tilt Effect (Desktop Only for Smooth Mobile Touch) ---
         function initTiltEffect()
         {
             if (window.innerWidth < 768)
@@ -1803,7 +1790,7 @@
             }
         }
 
-        // --- Contact & Share Interactions ---
+        
         function initContactActions()
         {
             const copyUrlBtn = document.getElementById("copy-profile-url-btn");
@@ -1827,7 +1814,6 @@
             });
         }
 
-        // --- Initialize Everything on DOM Ready ---
         document.addEventListener("DOMContentLoaded", function()
         {
             initMobileMenu();
