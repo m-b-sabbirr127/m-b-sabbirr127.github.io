@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md. Mostakim Billah (Sabbir) | Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Strict Allman Formatting for CSS */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+        :root
+        {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border-color: #30363d;
+            --accent-blue: #58a6ff;
+            --accent-green: #238636;
+            --accent-green-light: #3fb950;
+            --accent-purple: #bc8cff;
+            --accent-orange: #d29922;
+        }
+
+        body
+        {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: #c9d1d9;
+            overflow-x: hidden;
+        }
+
+        .font-mono-code
+        {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar
+        {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track
+        {
+            background: #0d1117;
+        }
+
+        ::-webkit-scrollbar-thumb
+        {
+            background: #30363d;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover
+        {
+            background: #58a6ff;
+        }
+
+        /* Subtle Grid Background */
+        .bg-grid-pattern
+        {
+            background-size: 32px 32px;
+            background-image: 
+                linear-gradient(to right, rgba(48, 54, 61, 0.22) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(48, 54, 61, 0.22) 1px, transparent 1px);
+        }
+
+        /* GitHub Dark Theme Utility Classes */
+        .gh-border
+        {
+            border: 1px solid #30363d;
+        }
+
+        .gh-bg-card
+        {
+            background-color: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal
+        {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active
+        {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blinking Cursor for Typing Effect */
+        .cursor::after
+        {
+            content: '▋';
+            animation: blink 1s step-start infinite;
+            color: #58a6ff;
+            margin-left: 4px;
+            font-size: 0.9em;
+        }
+
+        @keyframes blink
+        {
+            50%
+            {
+                opacity: 0;
+            }
+        }
+
+        /* Floating Animation for Profile Badges */
+        @keyframes floatSlow
+        {
+            0%, 100%
+            {
+                transform: translateY(0px);
+            }
+            50%
+            {
+                transform: translateY(-8px);
+            }
+        }
+
+        .animate-float-1
+        {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        .animate-float-2
+        {
+            animation: floatSlow 5s ease-in-out infinite 1s;
+        }
+
+        .animate-float-3
+        {
+            animation: floatSlow 4.5s ease-in-out infinite 2s;
+        }
+
+        /* Bento & Card Hover Effects */
+        .bento-item
+        {
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-item:hover
+        {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px -10px rgba(88, 166, 255, 0.22);
+            border-color: #58a6ff;
+        }
+
+        .bento-item::before
+        {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.06), transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+
+        .bento-item:hover::before
+        {
+            left: 100%;
+        }
+
+        /* 3D Tilt Card Base Styles */
+        .tilt-card
+        {
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* Tech Badge Styling */
+        .tech-pill
+        {
+            transition: all 0.25s ease;
+        }
+
+        .tech-pill:hover
+        {
+            transform: translateY(-3px) scale(1.03);
+            border-color: #58a6ff;
+            box-shadow: 0 6px 20px -4px rgba(88, 166, 255, 0.25);
+        }
+
+        /* Custom Toast Notification */
+        #toast-container
+        {
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#58a6ff] selection:text-[#0d1117] bg-grid-pattern">
+
+    <!-- Top Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-[60] bg-transparent">
+        <div id="scroll-progress" class="h-full bg-gradient-to-r from-[#58a6ff] via-[#3fb950] to-[#bc8cff] w-0 transition-all duration-75"></div>
+    </div>
+
+    <!-- Custom Toast Notification (No alert() used) -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[70] pointer-events-none opacity-0 translate-y-4">
+        <div class="gh-bg-card gh-border border-l-4 border-l-[#3fb950] text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-[#3fb950] text-lg"></i>
+            <span id="toast-message" class="text-sm font-medium">Copied to clipboard!</span>
+        </div>
+    </div>
+
+    <!-- Project Architecture Detail Modal -->
+    <div id="project-modal" class="fixed inset-0 z-[65] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+        <div class="gh-bg-card gh-border rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative animate-fadeIn">
+            <button id="close-modal-btn" class="absolute top-5 right-5 w-9 h-9 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-gray-400 hover:text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-4">
+                <div id="modal-icon-box" class="w-11 h-11 rounded-xl bg-blue-500/10 gh-border flex items-center justify-center text-[#58a6ff]">
+                    <i id="modal-icon" class="fa-solid fa-code text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-mono-code uppercase tracking-wider text-[#3fb950] bg-[#238636]/20 px-2 py-0.5 rounded-full">Original Repository</span>
+                    <h3 id="modal-title" class="text-xl font-bold text-white mt-0.5">Project Name</h3>
+                </div>
+            </div>
+            <p id="modal-desc" class="text-gray-300 text-sm leading-relaxed mb-5"></p>
+            <div class="mb-6">
+                <h4 class="text-xs font-mono-code uppercase text-gray-400 mb-2.5">Key Highlights & Specs</h4>
+                <ul id="modal-features" class="space-y-2 text-sm text-gray-300"></ul>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-[#30363d]">
+                <span id="modal-updated" class="text-xs font-mono-code text-gray-400"></span>
+                <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="bg-[#238636] hover:bg-[#2ea043] text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors inline-flex items-center gap-2">
+                    <i class="fa-brands fa-github"></i> Open on GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Responsive Navbar -->
+    <nav class="fixed w-full z-50 top-0 gh-border border-b bg-[#0d1117]/85 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo -->
+                <a href="#home" class="font-bold text-lg sm:text-xl tracking-tight text-white hover:text-[#58a6ff] transition-colors flex items-center gap-2.5">
+                    <div class="relative">
+                        <img src="https://github.com/m-b-sabbirr127.png" onerror="this.src='https://placehold.co/100x100/161b22/58a6ff?text=MB'" alt="Sabbir" class="w-9 h-9 rounded-full gh-border object-cover">
+                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#3fb950] border-2 border-[#0d1117] rounded-full"></span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="leading-none">Sabbir</span>
+                        <span class="text-[11px] font-mono-code text-gray-400 font-normal">@m-b-sabbirr127</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="#home" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">Home</a>
+                    <a href="#about" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">About</a>
+                    <a href="#skills" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">Tech Stack</a>
+                    <a href="#cp" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">CP & Code</a>
+                    <a href="#projects" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">Projects</a>
+                    <a href="#terminal-sec" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">Terminal</a>
+                    <a href="#contact" class="ml-2 bg-[#238636] hover:bg-[#2ea043] text-white px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-paper-plane text-xs"></i> Connect
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" aria-label="Toggle Menu" class="text-gray-300 hover:text-white p-2.5 rounded-lg bg-[#161b22] gh-border focus:outline-none">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#161b22] border-b border-[#30363d] px-4 pt-3 pb-5 space-y-2">
+            <a href="#home" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-house w-6 text-[#58a6ff]"></i> Home
+            </a>
+            <a href="#about" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-user-astronaut w-6 text-[#3fb950]"></i> About Me
+            </a>
+            <a href="#skills" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-layer-group w-6 text-[#bc8cff]"></i> Tech Stack & Stats
+            </a>
+            <a href="#cp" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-trophy w-6 text-[#d29922]"></i> Competitive Programming
+            </a>
+            <a href="#projects" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-code-branch w-6 text-[#58a6ff]"></i> Original Projects
+            </a>
+            <a href="#terminal-sec" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-terminal w-6 text-[#3fb950]"></i> Interactive CLI
+            </a>
+            <a href="#contact" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium bg-[#238636] text-white text-center mt-2">
+                <i class="fa-solid fa-paper-plane mr-1.5"></i> Connect With Me
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-28 pb-16 md:pt-36 md:pb-24 px-4 sm:px-6 lg:px-8 min-h-[92vh] flex items-center relative overflow-hidden">
+        <!-- Ambient Glow Orbs -->
+        <div class="absolute top-16 left-10 w-72 h-72 sm:w-96 sm:h-96 bg-[#58a6ff]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-12 right-10 w-72 h-72 sm:w-96 sm:h-96 bg-[#238636]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-12 relative z-10">
+            
+            <!-- Left Column: Intro & CTAs -->
+            <div class="w-full lg:w-3/5 text-center lg:text-left reveal">
+                <!-- Status Pill -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#161b22] gh-border mb-5 text-xs sm:text-sm text-gray-300">
+                    <span class="w-2 h-2 rounded-full bg-[#3fb950] animate-ping"></span>
+                    <span class="font-mono-code">Open to Open Source & Algorithmic Collaboration</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-3 tracking-tight leading-tight">
+                    Md. Mostakim Billah
+                    <span class="block sm:inline text-[#58a6ff] font-semibold text-2xl sm:text-4xl lg:text-5xl mt-1 sm:mt-0">(Sabbir)</span>
+                </h1>
+                
+                <!-- Dynamic Typing Subheader -->
+                <div class="h-10 sm:h-12 flex items-center justify-center lg:justify-start mb-5">
+                    <h2 class="text-lg sm:text-2xl md:text-3xl text-gray-300 font-medium font-mono-code">
+                        &gt; <span id="typing-text" class="text-[#58a6ff] font-semibold"></span><span class="cursor"></span>
+                    </h2>
+                </div>
+
+                <p class="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto lg:mx-0 mb-6 leading-relaxed">
+                    Passionate about <strong class="text-white">Data Structures & Algorithms</strong>, <strong class="text-white">Advanced C++</strong>, and <strong class="text-white">High-Performance System Architecture</strong>. Relentlessly solving complex problems and crafting clean, efficient code.
+                </p>
+
+                <!-- Education Card Badge (No Semester/CGPA) -->
+                <div class="gh-border border-l-4 border-l-[#3fb950] px-4 py-3 mb-8 bg-[#161b22]/90 rounded-r-xl inline-flex items-center gap-3.5 text-left max-w-full">
+                    <div class="w-10 h-10 rounded-lg bg-[#238636]/20 flex items-center justify-center text-[#3fb950] shrink-0">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm sm:text-base text-white font-semibold">
+                            B.Sc. in Computer Science and Engineering
+                        </p>
+                        <p class="text-xs sm:text-sm text-gray-400">Daffodil International University (DIU)</p>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
+                    <a href="#projects" class="w-full sm:w-auto justify-center bg-[#238636] hover:bg-[#2ea043] text-white font-medium py-3 px-6 rounded-xl transition-all shadow-lg shadow-[#238636]/20 flex items-center gap-2">
+                        <i class="fa-solid fa-code"></i> Explore Projects
+                    </a>
+                    <a href="#terminal-sec" class="w-full sm:w-auto justify-center bg-[#161b22] hover:bg-[#21262d] gh-border text-[#58a6ff] font-mono-code text-sm py-3 px-5 rounded-xl transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-terminal"></i> Launch CLI
+                    </a>
+                    <a href="https://github.com/m-b-sabbirr127" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto justify-center bg-[#21262d] hover:bg-[#30363d] gh-border text-white font-medium py-3 px-5 rounded-xl transition-all flex items-center gap-2">
+                        <i class="fa-brands fa-github text-lg"></i> GitHub Profile
+                    </a>
+                </div>
+
+                <!-- Quick Highlights Strip -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-4 mt-10 pt-8 border-t border-[#30363d]/80 max-w-lg mx-auto lg:mx-0">
+                    <div class="text-center lg:text-left">
+                        <div class="text-xl sm:text-2xl font-bold text-white font-mono-code">C / C++</div>
+                        <div class="text-xs text-gray-400">Core Language</div>
+                    </div>
+                    <div class="text-center lg:text-left border-x border-[#30363d] px-2 sm:px-4">
+                        <div class="text-xl sm:text-2xl font-bold text-[#3fb950] font-mono-code">DSA &amp; CP</div>
+                        <div class="text-xs text-gray-400">Primary Focus</div>
+                    </div>
+                    <div class="text-center lg:text-left">
+                        <div class="text-xl sm:text-2xl font-bold text-[#58a6ff] font-mono-code">20+</div>
+                        <div class="text-xs text-gray-400">Tools &amp; Tech</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Avatar & Floating Tech Badges -->
+            <div class="w-full lg:w-2/5 flex justify-center reveal">
+                <div class="relative group">
+                    <!-- Animated Glow Ring -->
+                    <div class="absolute -inset-1.5 bg-gradient-to-tr from-[#58a6ff] via-[#3fb950] to-[#bc8cff] rounded-full blur-md opacity-40 group-hover:opacity-75 transition duration-700"></div>
+                    
+                    <!-- Main Avatar Image -->
+                    <img src="https://github.com/m-b-sabbirr127.png" 
+                         onerror="this.src='https://placehold.co/400x400/161b22/58a6ff?text=Sabbir'" 
+                         alt="Md. Mostakim Billah (Sabbir)" 
+                         class="relative w-52 h-52 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full gh-border border-4 border-[#161b22] shadow-2xl object-cover">
+
+                    <!-- Floating Badge 1: C++ -->
+                    <div class="animate-float-1 absolute -top-2 -left-4 sm:left-0 gh-bg-card gh-border px-3 py-1.5 rounded-xl shadow-xl flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-[#58a6ff]"></i>
+                        <span class="text-xs font-mono-code font-semibold text-white">C++ 46.2%</span>
+                    </div>
+
+                    <!-- Floating Badge 2: Codeforces/CP -->
+                    <div class="animate-float-2 absolute top-1/2 -right-5 sm:-right-8 gh-bg-card gh-border px-3 py-1.5 rounded-xl shadow-xl flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-[#d29922]"></i>
+                        <span class="text-xs font-mono-code font-semibold text-white">DSA &amp; Graph</span>
+                    </div>
+
+                    <!-- Floating Badge 3: Accepted Verdict -->
+                    <div class="animate-float-3 absolute -bottom-3 left-1/2 -translate-x-1/2 gh-bg-card border border-[#238636] px-3.5 py-1.5 rounded-full shadow-xl flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-check-double text-[#3fb950] text-xs"></i>
+                        <span class="text-xs font-mono-code font-semibold text-[#3fb950]">Verdict: Accepted</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Me Bento Grid Section -->
+    <section id="about" class="py-20 sm:py-24 bg-[#161b22]/60 border-y border-[#30363d] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 reveal">
+                <span class="text-xs font-mono-code uppercase tracking-widest text-[#58a6ff] bg-[#58a6ff]/10 px-3 py-1 rounded-full gh-border">README.md</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-3">About Me</h2>
+                <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
+                    A snapshot of what I am building, learning, and debugging right now.
+                </p>
+            </div>
+
+            <!-- 6-Card Bento Grid with User's Exact Points -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                
+                <!-- Item 1 -->
+                <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl">🔭</span>
+                            <span class="text-xs font-mono-code text-[#58a6ff] bg-[#58a6ff]/10 px-2.5 py-1 rounded-md">Active Work</span>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Current Focus</h3>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                            I’m currently working on <strong class="text-white font-semibold">DSA</strong> (Data Structures and Algorithms) to build rock-solid problem-solving foundations.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-[#21262d] flex items-center justify-between text-xs font-mono-code text-gray-500">
+                        <span>Complexity: O(log N)</span>
+                        <i class="fa-solid fa-diagram-project text-[#58a6ff]"></i>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between lg:col-span-2">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl">👯</span>
+                            <span class="text-xs font-mono-code text-[#3fb950] bg-[#238636]/20 px-2.5 py-1 rounded-md">Teamwork &amp; OSS</span>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Looking to Collaborate On</h3>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                            I’m looking to collaborate on <strong class="text-[#58a6ff] font-semibold">Open Source Software, Algorithmic Tools &amp; Backend Systems</strong>. Whether it is building developer utilities or scalable server architectures, I love contributing to impactful repositories.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-[#21262d] flex flex-wrap gap-2 text-xs font-mono-code">
+                        <span class="bg-[#161b22] text-gray-300 px-2.5 py-1 rounded gh-border">#OpenSource</span>
+                        <span class="bg-[#161b22] text-gray-300 px-2.5 py-1 rounded gh-border">#AlgorithmicTools</span>
+                        <span class="bg-[#161b22] text-gray-300 px-2.5 py-1 rounded gh-border">#BackendSystems</span>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between lg:col-span-2">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl">🌱</span>
+                            <span class="text-xs font-mono-code text-[#bc8cff] bg-[#bc8cff]/10 px-2.5 py-1 rounded-md">Growth Path</span>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Currently Learning</h3>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                            I’m currently learning <strong class="text-[#3fb950] font-semibold">Advanced C++, Dynamic Programming, &amp; High-Performance System Architecture</strong>—focusing on memory optimization, STL internals, and state-transition design.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-[#21262d] flex flex-wrap gap-2 text-xs font-mono-code">
+                        <span class="bg-[#161b22] text-[#3fb950] px-2.5 py-1 rounded gh-border">Modern C++</span>
+                        <span class="bg-[#161b22] text-[#58a6ff] px-2.5 py-1 rounded gh-border">Dynamic Programming</span>
+                        <span class="bg-[#161b22] text-[#bc8cff] px-2.5 py-1 rounded gh-border">System Architecture</span>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl">🤝</span>
+                            <span class="text-xs font-mono-code text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-md">Brainstorming</span>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Looking for Help With</h3>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                            I’m looking for help with <strong class="text-white font-semibold">Advanced Graph Algorithms &amp; System Design Fundamentals</strong>.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-[#21262d] flex items-center justify-between text-xs font-mono-code text-gray-500">
+                        <span>Shortest Paths &amp; Flows</span>
+                        <i class="fa-solid fa-network-wired text-amber-400"></i>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="bento-item gh-border bg-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between lg:col-span-2">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl">💬</span>
+                            <span class="text-xs font-mono-code text-[#58a6ff] bg-[#58a6ff]/10 px-2.5 py-1 rounded-md">Ask Me Anything</span>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Topics I Love Discussing</h3>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+                            Ask me about <strong class="text-white font-semibold">Competitive Programming (Codeforces, BeeCrowd, Toph), C/C++, &amp; Data Structures</strong>. Always happy to discuss tricky problem statements and optimal time complexities!
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-[#21262d] flex items-center gap-4 text-xs font-mono-code text-gray-400">
+                        <span><i class="fa-solid fa-code text-[#58a6ff] mr-1"></i>Codeforces</span>
+                        <span><i class="fa-solid fa-bug-slash text-[#3fb950] mr-1"></i>BeeCrowd</span>
+                        <span><i class="fa-solid fa-award text-[#bc8cff] mr-1"></i>Toph</span>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="bento-item border border-[#d29922]/70 bg-gradient-to-br from-[#d29922]/15 via-[#0d1117] to-[#0d1117] p-6 sm:p-7 rounded-2xl reveal flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl">⚡</span>
+                            <span class="text-xs font-mono-code text-[#d29922] bg-[#d29922]/20 px-2.5 py-1 rounded-md">Fun Fact</span>
+                        </div>
+                        <h3 class="text-[#d29922] font-bold text-lg mb-2">The Edge-Case Hunter</h3>
+                        <p class="text-gray-200 text-sm sm:text-base leading-relaxed italic">
+                            "I can spend hours debugging an edge-case for a single Accepted verdict on Codeforces!"
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-3 border-t border-[#d29922]/30 flex items-center justify-between text-xs font-mono-code text-[#d29922]">
+                        <span>Status: AC (0.015s)</span>
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack & GitHub Language Distribution Section -->
+    <section id="skills" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12 reveal">
+                <span class="text-xs font-mono-code uppercase tracking-widest text-[#3fb950] bg-[#238636]/20 px-3 py-1 rounded-full gh-border">Tools &amp; Technologies</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-3">Tech Stack &amp; GitHub Analytics</h2>
+                <p class="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
+                    Filter through the languages, frameworks, cloud platforms, and hardware boards I use to build projects.
+                </p>
+            </div>
+
+            <!-- Interactive Filter Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 reveal">
+                <button data-filter="all" class="stack-filter-btn active-filter bg-[#58a6ff] text-[#0d1117] font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl transition-all">
+                    All Tech (23)
+                </button>
+                <button data-filter="lang" class="stack-filter-btn bg-[#161b22] hover:bg-[#21262d] text-gray-300 gh-border text-xs sm:text-sm px-4 py-2 rounded-xl transition-all">
+                    Languages &amp; Core
+                </button>
+                <button data-filter="web" class="stack-filter-btn bg-[#161b22] hover:bg-[#21262d] text-gray-300 gh-border text-xs sm:text-sm px-4 py-2 rounded-xl transition-all">
+                    Web &amp; Backend
+                </button>
+                <button data-filter="cloud" class="stack-filter-btn bg-[#161b22] hover:bg-[#21262d] text-gray-300 gh-border text-xs sm:text-sm px-4 py-2 rounded-xl transition-all">
+                    Cloud &amp; Databases
+                </button>
+                <button data-filter="tools" class="stack-filter-btn bg-[#161b22] hover:bg-[#21262d] text-gray-300 gh-border text-xs sm:text-sm px-4 py-2 rounded-xl transition-all">
+                    Hardware &amp; Tools
+                </button>
+            </div>
+
+            <!-- Tech Stack Badges Grid (Matches Screenshot) -->
+            <div id="tech-stack-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 mb-14 reveal">
+                <!-- Languages -->
+                <div data-category="lang" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center font-mono-code font-bold text-sm">C</div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">C</div>
+                        <div class="text-[11px] text-gray-500">Systems / Core</div>
+                    </div>
+                </div>
+
+                <div data-category="lang" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-[#58a6ff] flex items-center justify-center font-mono-code font-bold text-xs">C++</div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">C++</div>
+                        <div class="text-[11px] text-[#58a6ff]">Primary / CP</div>
+                    </div>
+                </div>
+
+                <div data-category="lang" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-yellow-500/20 text-yellow-400 flex items-center justify-center"><i class="fa-brands fa-python"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Python</div>
+                        <div class="text-[11px] text-gray-500">Scripting / AI</div>
+                    </div>
+                </div>
+
+                <div data-category="lang" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center"><i class="fa-brands fa-java"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Java</div>
+                        <div class="text-[11px] text-gray-500">OOP</div>
+                    </div>
+                </div>
+
+                <div data-category="lang" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center"><i class="fa-brands fa-js"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">JavaScript</div>
+                        <div class="text-[11px] text-gray-500">ES6+ / Web</div>
+                    </div>
+                </div>
+
+                <div data-category="lang" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-mono-code font-bold text-xs">TS</div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">TypeScript</div>
+                        <div class="text-[11px] text-gray-500">Typed JS</div>
+                    </div>
+                </div>
+
+                <div data-category="lang" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gray-600/20 text-gray-300 flex items-center justify-center"><i class="fa-solid fa-terminal text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Bash Script</div>
+                        <div class="text-[11px] text-gray-500">Shell / CLI</div>
+                    </div>
+                </div>
+
+                <div data-category="lang" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center"><i class="fa-solid fa-code text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">PowerShell</div>
+                        <div class="text-[11px] text-gray-500">Automation</div>
+                    </div>
+                </div>
+
+                <!-- Web & Backend -->
+                <div data-category="web" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-orange-600/20 text-orange-500 flex items-center justify-center"><i class="fa-brands fa-html5"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">HTML5</div>
+                        <div class="text-[11px] text-gray-500">Markup</div>
+                    </div>
+                </div>
+
+                <div data-category="web" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center"><i class="fa-solid fa-wind text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">TailwindCSS</div>
+                        <div class="text-[11px] text-gray-500">UI Styling</div>
+                    </div>
+                </div>
+
+                <div data-category="web" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-green-600/20 text-green-400 flex items-center justify-center"><i class="fa-brands fa-node-js"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Node.js</div>
+                        <div class="text-[11px] text-gray-500">Runtime</div>
+                    </div>
+                </div>
+
+                <div data-category="web" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-white/10 text-white flex items-center justify-center font-mono-code font-bold text-xs">N</div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Next.js</div>
+                        <div class="text-[11px] text-gray-500">React Framework</div>
+                    </div>
+                </div>
+
+                <div data-category="web" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center"><i class="fa-solid fa-bolt text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">FastAPI</div>
+                        <div class="text-[11px] text-gray-500">Python API</div>
+                    </div>
+                </div>
+
+                <!-- Cloud & Databases -->
+                <div data-category="cloud" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center"><i class="fa-solid fa-fire text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Firebase</div>
+                        <div class="text-[11px] text-gray-500">BaaS / Cloud</div>
+                    </div>
+                </div>
+
+                <div data-category="cloud" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-white/10 text-white flex items-center justify-center"><i class="fa-solid fa-play -rotate-90 text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Vercel</div>
+                        <div class="text-[11px] text-gray-500">Deployment</div>
+                    </div>
+                </div>
+
+                <div data-category="cloud" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center"><i class="fa-solid fa-cloud text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Heroku</div>
+                        <div class="text-[11px] text-gray-500">Cloud Host</div>
+                    </div>
+                </div>
+
+                <div data-category="cloud" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center"><i class="fa-solid fa-leaf text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">MongoDB</div>
+                        <div class="text-[11px] text-gray-500">NoSQL DB</div>
+                    </div>
+                </div>
+
+                <div data-category="cloud" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-sky-600/20 text-sky-400 flex items-center justify-center"><i class="fa-solid fa-database text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">MySQL</div>
+                        <div class="text-[11px] text-gray-500">Relational DB</div>
+                    </div>
+                </div>
+
+                <!-- Hardware & Tools -->
+                <div data-category="tools" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gray-500/20 text-gray-200 flex items-center justify-center"><i class="fa-brands fa-windows"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Win Terminal</div>
+                        <div class="text-[11px] text-gray-500">Dev Shell</div>
+                    </div>
+                </div>
+
+                <div data-category="tools" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center"><i class="fa-brands fa-figma"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Figma</div>
+                        <div class="text-[11px] text-gray-500">UI Design</div>
+                    </div>
+                </div>
+
+                <div data-category="tools" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center"><i class="fa-solid fa-palette text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Canva</div>
+                        <div class="text-[11px] text-gray-500">Graphics</div>
+                    </div>
+                </div>
+
+                <div data-category="tools" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-teal-600/20 text-teal-400 flex items-center justify-center"><i class="fa-solid fa-infinity text-xs"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Arduino</div>
+                        <div class="text-[11px] text-gray-500">IoT / Embedded</div>
+                    </div>
+                </div>
+
+                <div data-category="tools" class="tech-pill gh-bg-card gh-border p-3.5 rounded-xl flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-rose-600/20 text-rose-400 flex items-center justify-center"><i class="fa-brands fa-raspberry-pi"></i></div>
+                    <div>
+                        <div class="text-white text-sm font-semibold">Raspberry Pi</div>
+                        <div class="text-[11px] text-gray-500">Single-Board</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Language Breakdown Bar (From User's Screenshot) -->
+            <div class="gh-bg-card gh-border rounded-2xl p-6 sm:p-8 reveal">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-[#58a6ff]"></i> Most Used Languages on GitHub
+                        </h3>
+                        <p class="text-xs sm:text-sm text-gray-400">Compiled across problem-solving archives, parser generators, and web repositories</p>
+                    </div>
+                    <span class="text-xs font-mono-code text-[#3fb950] bg-[#238636]/20 px-3 py-1 rounded-full self-start sm:self-auto">
+                        Top: C++ (46.23%)
+                    </span>
+                </div>
+
+                <!-- Multi-segment Progress Bar -->
+                <div class="w-full h-4 rounded-full overflow-hidden flex bg-[#0d1117] p-0.5 gh-border mb-6">
+                    <div style="width: 46.23%" class="bg-[#f34b7d] h-full rounded-l-full transition-all duration-700" title="C++: 46.23%"></div>
+                    <div style="width: 20.75%" class="bg-[#e34c26] h-full transition-all duration-700" title="HTML: 20.75%"></div>
+                    <div style="width: 19.91%" class="bg-[#4b6c4b] h-full transition-all duration-700" title="Yacc: 19.91%"></div>
+                    <div style="width: 6.24%" class="bg-[#3572A5] h-full transition-all duration-700" title="Python: 6.24%"></div>
+                    <div style="width: 4.93%" class="bg-[#dbca00] h-full transition-all duration-700" title="Lex: 4.93%"></div>
+                    <div style="width: 1.95%" class="bg-[#555555] h-full rounded-r-full transition-all duration-700" title="C: 1.95%"></div>
+                </div>
+
+                <!-- Legend Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs sm:text-sm">
+                    <div class="flex items-center gap-2.5 bg-[#0d1117] p-3 rounded-xl gh-border">
+                        <span class="w-3 h-3 rounded-full bg-[#f34b7d] shrink-0"></span>
+                        <div>
+                            <span class="text-white font-semibold block">C++</span>
+                            <span class="text-gray-400 font-mono-code text-xs">46.23%</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 bg-[#0d1117] p-3 rounded-xl gh-border">
+                        <span class="w-3 h-3 rounded-full bg-[#e34c26] shrink-0"></span>
+                        <div>
+                            <span class="text-white font-semibold block">HTML</span>
+                            <span class="text-gray-400 font-mono-code text-xs">20.75%</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 bg-[#0d1117] p-3 rounded-xl gh-border">
+                        <span class="w-3 h-3 rounded-full bg-[#4b6c4b] shrink-0"></span>
+                        <div>
+                            <span class="text-white font-semibold block">Yacc</span>
+                            <span class="text-gray-400 font-mono-code text-xs">19.91%</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 bg-[#0d1117] p-3 rounded-xl gh-border">
+                        <span class="w-3 h-3 rounded-full bg-[#3572A5] shrink-0"></span>
+                        <div>
+                            <span class="text-white font-semibold block">Python</span>
+                            <span class="text-gray-400 font-mono-code text-xs">6.24%</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 bg-[#0d1117] p-3 rounded-xl gh-border">
+                        <span class="w-3 h-3 rounded-full bg-[#dbca00] shrink-0"></span>
+                        <div>
+                            <span class="text-white font-semibold block">Lex</span>
+                            <span class="text-gray-400 font-mono-code text-xs">4.93%</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2.5 bg-[#0d1117] p-3 rounded-xl gh-border">
+                        <span class="w-3 h-3 rounded-full bg-[#777777] shrink-0"></span>
+                        <div>
+                            <span class="text-white font-semibold block">C</span>
+                            <span class="text-gray-400 font-mono-code text-xs">1.95%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Programming & C++ Template Section -->
+    <section id="cp" class="py-20 sm:py-24 bg-[#161b22]/60 border-y border-[#30363d] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-14 reveal">
+                <span class="text-xs font-mono-code uppercase tracking-widest text-[#d29922] bg-[#d29922]/15 px-3 py-1 rounded-full gh-border">Problem Solving</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-3">Competitive Programming Arena</h2>
+                <p class="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto">
+                    Translating algorithmic theory into fast, memory-efficient C/C++ implementations across online judges.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left 5 Cols: Online Judge Cards -->
+                <div class="lg:col-span-5 space-y-4 reveal">
+                    <!-- Codeforces Card -->
+                    <div class="bento-item gh-border bg-[#0d1117] p-5 sm:p-6 rounded-2xl">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-chart-simple"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-bold text-lg">Codeforces</h3>
+                                    <p class="text-xs text-gray-400 font-mono-code">Algorithmic Contests &amp; Upsolving</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono-code bg-[#238636]/20 text-[#3fb950] px-2.5 py-1 rounded-md">Active Judge</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Tackling Div. 2/3/4 rounds, greedy proofs, number theory, and hunting down tricky corner cases until that green <span class="text-[#3fb950] font-mono-code">Accepted</span> banner appears.
+                        </p>
+                    </div>
+
+                    <!-- BeeCrowd Card -->
+                    <div class="bento-item gh-border bg-[#0d1117] p-5 sm:p-6 rounded-2xl">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-code"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-bold text-lg">BeeCrowd</h3>
+                                    <p class="text-xs text-gray-400 font-mono-code">Data Structures &amp; Core Logic</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono-code bg-purple-500/15 text-purple-300 px-2.5 py-1 rounded-md">C / C++</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Strengthening implementation accuracy, string manipulation, ad-hoc logic, and foundational dynamic programming.
+                        </p>
+                    </div>
+
+                    <!-- Toph Card -->
+                    <div class="bento-item gh-border bg-[#0d1117] p-5 sm:p-6 rounded-2xl">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-blue-500/15 text-[#58a6ff] flex items-center justify-center font-bold">
+                                    <i class="fa-solid fa-Compass"></i>
+                                    <i class="fa-solid fa-trophy"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-bold text-lg">Toph</h3>
+                                    <p class="text-xs text-gray-400 font-mono-code">Regional &amp; Archive Challenges</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-mono-code bg-blue-500/15 text-[#58a6ff] px-2.5 py-1 rounded-md">Problem Solver</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Practicing classical competitive programming problems, graph traversals (BFS/DFS/Dijkstra), and fast I/O techniques.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right 7 Cols: Interactive C++ Template & Judge Simulator -->
+                <div class="lg:col-span-7 gh-border bg-[#0d1117] rounded-2xl overflow-hidden shadow-2xl reveal">
+                    <!-- Code Editor Top Bar -->
+                    <div class="bg-[#161b22] px-4 py-3 border-b border-[#30363d] flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+                            <span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
+                            <span class="w-3 h-3 rounded-full bg-[#27c93f]"></span>
+                            <span class="ml-2 text-xs font-mono-code text-gray-300">solution_template.cpp</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="run-verdict-btn" class="bg-[#238636] hover:bg-[#2ea043] text-white text-xs font-mono-code px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-play text-[10px]"></i> Run Judge
+                            </button>
+                            <button id="copy-cpp-btn" class="bg-[#21262d] hover:bg-[#30363d] text-gray-300 gh-border text-xs font-mono-code px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-regular fa-copy"></i> Copy Code
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Code Block -->
+                    <pre id="cpp-code-block" class="p-4 sm:p-6 text-xs sm:text-sm font-mono-code text-gray-300 overflow-x-auto leading-relaxed"><code><span class="text-gray-500">// Md. Mostakim Billah (Sabbir) - CP Fast I/O Template</span>
+<span class="text-[#ff7b72]">#include</span> <span class="text-[#a5d6ff]">&lt;iostream&gt;</span>
+<span class="text-[#ff7b72]">#include</span> <span class="text-[#a5d6ff]">&lt;vector&gt;</span>
+<span class="text-[#ff7b72]">#include</span> <span class="text-[#a5d6ff]">&lt;algorithm&gt;</span>
+
+<span class="text-[#ff7b72]">using namespace</span> std;
+<span class="text-[#ff7b72]">using</span> ll = <span class="text-[#ff7b72]">long long</span>;
+
+<span class="text-[#ff7b72]">void</span> <span class="text-[#d2a8ff]">solve_edge_case</span>()
+{
+    <span class="text-gray-500">// Focus: DSA, Dynamic Programming &amp; Graph Algorithms</span>
+    ll n;
+    <span class="text-[#ff7b72]">if</span> (!(cin &gt;&gt; n)) <span class="text-[#ff7b72]">return</span>;
+    cout &lt;&lt; <span class="text-[#a5d6ff]">"Verdict: Accepted"</span> &lt;&lt; <span class="text-[#a5d6ff]">'\n'</span>;
+}
+
+<span class="text-[#ff7b72]">int</span> <span class="text-[#d2a8ff]">main</span>()
+{
+    ios::sync_with_stdio(<span class="text-[#79c0ff]">false</span>);
+    cin.tie(<span class="text-[#79c0ff]">nullptr</span>);
+
+    <span class="text-[#ff7b72]">int</span> t = <span class="text-[#79c0ff]">1</span>;
+    <span class="text-[#ff7b72]">while</span> (t--)
+    {
+        <span class="text-[#d2a8ff]">solve_edge_case</span>();
+    }
+    <span class="text-[#ff7b72]">return</span> <span class="text-[#79c0ff]">0</span>;
+}</code></pre>
+
+                    <!-- Judge Verdict Output Bar -->
+                    <div class="bg-[#161b22] px-4 py-3 border-t border-[#30363d] flex flex-wrap items-center justify-between gap-2 text-xs font-mono-code">
+                        <div class="flex items-center gap-2">
+                            <span class="text-gray-400">Judge Status:</span>
+                            <span id="verdict-status" class="text-[#3fb950] font-semibold">Ready to Submit (GNU C++20)</span>
+                        </div>
+                        <div id="verdict-metrics" class="text-gray-400">
+                            Time: <span class="text-white">15 ms</span> | Memory: <span class="text-white">2048 KB</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Original Projects Section -->
+    <section id="projects" class="py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-14 reveal">
+                <div>
+                    <span class="text-xs font-mono-code uppercase tracking-widest text-[#58a6ff] bg-[#58a6ff]/10 px-3 py-1 rounded-full gh-border">Original Repositories</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-2">Featured Projects</h2>
+                    <p class="text-gray-400 text-sm sm:text-base">
+                        Hand-built web applications and interactive tools hosted on my GitHub.
+                    </p>
+                </div>
+                <a href="https://github.com/m-b-sabbirr127?tab=repositories" target="_blank" rel="noopener noreferrer" class="mt-4 md:mt-0 text-sm font-mono-code text-[#58a6ff] hover:underline flex items-center gap-1.5">
+                    View All on GitHub <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                
+                <!-- Original Project 1: mini_fb_model -->
+                <div class="tilt-card rounded-2xl reveal">
+                    <div class="gh-border gh-bg-card rounded-2xl p-6 sm:p-8 h-full flex flex-col justify-between hover:border-[#58a6ff] transition-colors">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center gh-border text-[#58a6ff]">
+                                    <i class="fa-solid fa-users-viewfinder text-xl"></i>
+                                </div>
+                                <span class="text-xs font-mono-code text-gray-400 bg-[#0d1117] px-2.5 py-1 rounded-md gh-border">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-[#e34c26] mr-1"></span>HTML
+                                </span>
+                            </div>
+
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 font-mono-code">mini_fb_model</h3>
+                            <p class="text-xs text-[#58a6ff] font-mono-code mb-3">Updated on Aug 21 • Public Repo</p>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                A frontend social network UI architecture replicating core feed structures, user profile layouts, and interactive components using clean semantic HTML5.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="flex flex-wrap gap-2 text-xs font-mono-code text-gray-400 mb-6">
+                                <span class="bg-[#0d1117] px-2.5 py-1 rounded gh-border">HTML5</span>
+                                <span class="bg-[#0d1117] px-2.5 py-1 rounded gh-border">Social Feed UI</span>
+                                <span class="bg-[#0d1117] px-2.5 py-1 rounded gh-border">Responsive DOM</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-[#30363d] gap-2">
+                                <button data-project="fb" class="inspect-project-btn text-xs sm:text-sm font-medium text-gray-300 hover:text-white bg-[#21262d] hover:bg-[#30363d] px-3.5 py-2 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Details
+                                </button>
+                                <a href="https://github.com/m-b-sabbirr127/mini_fb_model" target="_blank" rel="noopener noreferrer" class="text-[#58a6ff] hover:text-white transition-colors text-xs sm:text-sm font-semibold flex items-center gap-1.5 group">
+                                    Repository <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Original Project 2: agri_gpa_marks_calculator_2025 -->
+                <div class="tilt-card rounded-2xl reveal">
+                    <div class="gh-border gh-bg-card rounded-2xl p-6 sm:p-8 h-full flex flex-col justify-between hover:border-[#3fb950] transition-colors">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-green-500/15 flex items-center justify-center gh-border text-[#3fb950]">
+                                    <i class="fa-solid fa-calculator text-xl"></i>
+                                </div>
+                                <span class="text-xs font-mono-code text-gray-400 bg-[#0d1117] px-2.5 py-1 rounded-md gh-border">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-[#e34c26] mr-1"></span>HTML
+                                </span>
+                            </div>
+
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 font-mono-code break-words">agri_gpa_marks_calculator_2025</h3>
+                            <p class="text-xs text-[#3fb950] font-mono-code mb-3">Updated on May 31 • Public Repo</p>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                A specialized academic utility built for computing GPA weightages and admission marks swiftly and accurately based on the 2025 agricultural cluster criteria.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="flex flex-wrap gap-2 text-xs font-mono-code text-gray-400 mb-6">
+                                <span class="bg-[#0d1117] px-2.5 py-1 rounded gh-border">HTML5</span>
+                                <span class="bg-[#0d1117] px-2.5 py-1 rounded gh-border">GPA Algorithm</span>
+                                <span class="bg-[#0d1117] px-2.5 py-1 rounded gh-border">Form Validation</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-[#30363d] gap-2">
+                                <button data-project="agri" class="inspect-project-btn text-xs sm:text-sm font-medium text-gray-300 hover:text-white bg-[#21262d] hover:bg-[#30363d] px-3.5 py-2 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Details
+                                </button>
+                                <a href="https://github.com/m-b-sabbirr127/agri_gpa_marks_calculator_2025" target="_blank" rel="noopener noreferrer" class="text-[#58a6ff] hover:text-white transition-colors text-xs sm:text-sm font-semibold flex items-center gap-1.5 group">
+                                    Repository <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Original Project 3: playtime_counter -->
+                <div class="tilt-card rounded-2xl reveal">
+                    <div class="gh-border gh-bg-card rounded-2xl p-6 sm:p-8 h-full flex flex-col justify-between hover:border-[#bc8cff] transition-colors">
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-purple-500/15 flex items-center justify-center gh-border text-[#bc8cff]">
+                                    <i class="fa-solid fa-stopwatch-20 text-xl"></i>
+                                </div>
+                                <span class="text-xs font-mono-code text-gray-400 bg-[#0d1117] px-2.5 py-1 rounded-md gh-border">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-[#e34c26] mr-1"></span>HTML
+                                </span>
+                            </div>
+
+                            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 font-mono-code">playtime_counter</h3>
+                            <p class="text-xs text-[#bc8cff] font-mono-code mb-3">Updated on Feb 22, 2025 • Public Repo</p>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                A precision time-tracking and session counter web utility designed to log active hours, manage intervals, and monitor productivity or gaming durations.
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="flex flex-wrap gap-2 text-xs font-mono-code text-gray-400 mb-6">
+                                <span class="bg-[#0d1117] px-2.5 py-1 rounded gh-border">HTML5</span>
+                                <span class="bg-[#0d1117] px-2.5 py-1 rounded gh-border">Session Timer</span>
+                                <span class="bg-[#0d1117] px-2.5 py-1 rounded gh-border">Utility Web App</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-[#30363d] gap-2">
+                                <button data-project="playtime" class="inspect-project-btn text-xs sm:text-sm font-medium text-gray-300 hover:text-white bg-[#21262d] hover:bg-[#30363d] px-3.5 py-2 rounded-lg transition-colors">
+                                    <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Details
+                                </button>
+                                <a href="https://github.com/m-b-sabbirr127/playtime_counter" target="_blank" rel="noopener noreferrer" class="text-[#58a6ff] hover:text-white transition-colors text-xs sm:text-sm font-semibold flex items-center gap-1.5 group">
+                                    Repository <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Developer Terminal Section (Works on Phone & PC!) -->
+    <section id="terminal-sec" class="py-20 sm:py-24 bg-[#161b22]/60 border-t border-[#30363d] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10 reveal">
+                <span class="text-xs font-mono-code uppercase tracking-widest text-[#3fb950] bg-[#238636]/20 px-3 py-1 rounded-full gh-border">Interactive Shell</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-2">SabbirOS Terminal</h2>
+                <p class="text-gray-400 text-sm sm:text-base">
+                    Type a command below or tap any quick-command button (mobile friendly) to inspect my profile.
+                </p>
+            </div>
+
+            <!-- Quick Command Pills for Mobile & Desktop Convenience -->
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-5 reveal">
+                <button data-cmd="help" class="term-quick-btn text-xs font-mono-code bg-[#21262d] hover:bg-[#30363d] text-[#58a6ff] px-3 py-1.5 rounded-lg gh-border transition-colors">
+                    $ help
+                </button>
+                <button data-cmd="whoami" class="term-quick-btn text-xs font-mono-code bg-[#21262d] hover:bg-[#30363d] text-[#3fb950] px-3 py-1.5 rounded-lg gh-border transition-colors">
+                    $ whoami
+                </button>
+                <button data-cmd="skills" class="term-quick-btn text-xs font-mono-code bg-[#21262d] hover:bg-[#30363d] text-[#bc8cff] px-3 py-1.5 rounded-lg gh-border transition-colors">
+                    $ skills
+                </button>
+                <button data-cmd="projects" class="term-quick-btn text-xs font-mono-code bg-[#21262d] hover:bg-[#30363d] text-amber-400 px-3 py-1.5 rounded-lg gh-border transition-colors">
+                    $ projects
+                </button>
+                <button data-cmd="funfact" class="term-quick-btn text-xs font-mono-code bg-[#21262d] hover:bg-[#30363d] text-pink-400 px-3 py-1.5 rounded-lg gh-border transition-colors">
+                    $ funfact
+                </button>
+                <button data-cmd="clear" class="term-quick-btn text-xs font-mono-code bg-[#21262d] hover:bg-[#30363d] text-gray-400 px-3 py-1.5 rounded-lg gh-border transition-colors">
+                    $ clear
+                </button>
+            </div>
+
+            <!-- Terminal Window -->
+            <div class="gh-border bg-[#0d1117] rounded-2xl overflow-hidden shadow-2xl reveal">
+                <div class="bg-[#161b22] px-4 py-3 border-b border-[#30363d] flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+                        <span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
+                        <span class="w-3 h-3 rounded-full bg-[#27c93f]"></span>
+                        <span class="ml-2 text-xs font-mono-code text-gray-400">sabbir@m-b-sabbirr127:~ (bash)</span>
+                    </div>
+                    <span class="text-[11px] font-mono-code text-gray-500">v2.6.0</span>
+                </div>
+
+                <!-- Terminal Output Log -->
+                <div id="terminal-output" class="p-4 sm:p-6 h-72 sm:h-80 overflow-y-auto font-mono-code text-xs sm:text-sm space-y-3 text-gray-300">
+                    <div>
+                        <span class="text-[#3fb950]">Welcome to SabbirOS CLI!</span> Type <span class="text-[#58a6ff]">help</span> or tap a button above to explore.
+                    </div>
+                    <div>
+                        <span class="text-[#58a6ff]">sabbir@github:~$</span> whoami<br>
+                        <span class="text-gray-400">&gt; Md. Mostakim Billah (Sabbir) | B.Sc. in CSE @ Daffodil International University</span>
+                    </div>
+                </div>
+
+                <!-- Terminal Input Row -->
+                <form id="terminal-form" class="bg-[#161b22]/90 px-4 py-3 border-t border-[#30363d] flex items-center gap-2 font-mono-code text-xs sm:text-sm">
+                    <span class="text-[#3fb950] shrink-0">sabbir@github:~$</span>
+                    <input id="terminal-input" type="text" placeholder="Type help, whoami, skills, projects, funfact, clear..." autocomplete="off" class="w-full bg-transparent text-white focus:outline-none placeholder-gray-600">
+                    <button type="submit" class="bg-[#238636] hover:bg-[#2ea043] text-white px-3 py-1 rounded-md text-xs shrink-0 transition-colors">
+                        Enter
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect & Socials Section -->
+    <section id="contact" class="py-20 sm:py-24 border-t border-[#30363d] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Left Column: Socials & Direct Links -->
+                <div class="lg:col-span-6 reveal">
+                    <span class="text-xs font-mono-code uppercase tracking-widest text-[#58a6ff] bg-[#58a6ff]/10 px-3 py-1 rounded-full gh-border">Let's Connect</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3 mb-4">Collaborate &amp; Reach Out</h2>
+                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed mb-8">
+                        Looking to collaborate on <strong class="text-white">Open Source Software, Algorithmic Tools, or Backend Systems</strong>? Or want to discuss a tricky C++ Graph / Dynamic Programming problem? Connect with me across my social platforms!
+                    </p>
+
+                    <!-- Social Badges Matching Screenshot -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5 mb-8">
+                        <a href="https://github.com/m-b-sabbirr127" target="_blank" rel="noopener noreferrer" class="gh-bg-card gh-border hover:border-[#58a6ff] p-3.5 rounded-xl flex items-center gap-3 transition-all group">
+                            <i class="fa-brands fa-github text-xl text-white group-hover:text-[#58a6ff]"></i>
+                            <div>
+                                <div class="text-xs text-gray-400">GitHub</div>
+                                <div class="text-sm font-semibold text-white">m-b-sabbirr127</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="gh-bg-card gh-border hover:border-[#0a66c2] p-3.5 rounded-xl flex items-center gap-3 transition-all group">
+                            <i class="fa-brands fa-linkedin text-xl text-[#0a66c2]"></i>
+                            <div>
+                                <div class="text-xs text-gray-400">Network</div>
+                                <div class="text-sm font-semibold text-white">LinkedIn</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="gh-bg-card gh-border hover:border-[#1877f2] p-3.5 rounded-xl flex items-center gap-3 transition-all group">
+                            <i class="fa-brands fa-facebook text-xl text-[#1877f2]"></i>
+                            <div>
+                                <div class="text-xs text-gray-400">Social</div>
+                                <div class="text-sm font-semibold text-white">Facebook</div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="gh-bg-card gh-border hover:border-pink-500 p-3.5 rounded-xl flex items-center gap-3 transition-all group">
+                            <i class="fa-brands fa-instagram text-xl text-pink-500"></i>
+                            <div>
+                                <div class="text-xs text-gray-400">Photos</div>
+                                <div class="text-sm font-semibold text-white">Instagram</div>
+                            </div>
+                        </a>
+
+                        <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="gh-bg-card gh-border hover:border-gray-300 p-3.5 rounded-xl flex items-center gap-3 transition-all group">
+                            <i class="fa-brands fa-x-twitter text-xl text-white"></i>
+                            <div>
+                                <div class="text-xs text-gray-400">Microblog</div>
+                                <div class="text-sm font-semibold text-white">X (Twitter)</div>
+                            </div>
+                        </a>
+
+                        <button id="copy-profile-url-btn" class="gh-bg-card gh-border hover:border-[#3fb950] p-3.5 rounded-xl flex items-center gap-3 transition-all text-left group">
+                            <i class="fa-solid fa-link text-xl text-[#3fb950]"></i>
+                            <div>
+                                <div class="text-xs text-gray-400">Share Link</div>
+                                <div class="text-sm font-semibold text-white">Copy GitHub URL</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column: Quick Ping Interactive Form -->
+                <div class="lg:col-span-6 reveal">
+                    <div class="gh-bg-card gh-border rounded-2xl p-6 sm:p-8 shadow-xl">
+                        <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                            <i class="fa-regular fa-paper-plane text-[#58a6ff]"></i> Send a Quick Ping
+                        </h3>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-6">
+                            Leave a collaboration note or topic below to generate a pre-formatted message.
+                        </p>
+
+                        <form id="contact-form" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-mono-code text-gray-400 mb-1.5">Your Name / Handle</label>
+                                <input id="sender-name" type="text" required placeholder="e.g., Alex (@alex_dev)" class="w-full bg-[#0d1117] gh-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#58a6ff]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono-code text-gray-400 mb-1.5">Collaboration Topic</label>
+                                <select id="sender-topic" class="w-full bg-[#0d1117] gh-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#58a6ff]">
+                                    <option value="Open Source Collaboration">Open Source Collaboration</option>
+                                    <option value="Competitive Programming / DSA">Competitive Programming / DSA</option>
+                                    <option value="Algorithmic Tools & Backend">Algorithmic Tools &amp; Backend Systems</option>
+                                    <option value="General Networking">General Networking</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono-code text-gray-400 mb-1.5">Message</label>
+                                <textarea id="sender-msg" rows="3" required placeholder="Hey Sabbir! Let's collaborate on..." class="w-full bg-[#0d1117] gh-border rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#58a6ff]"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-[#238636] hover:bg-[#2ea043] text-white font-semibold py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-check"></i> Copy Formatted Ping &amp; Connect
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gh-border border-t py-8 bg-[#0d1117] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <img src="https://github.com/m-b-sabbirr127.png" onerror="this.src='https://placehold.co/80x80/161b22/58a6ff?text=MB'" alt="MB" class="w-7 h-7 rounded-full gh-border">
+                <p class="text-gray-400 text-xs sm:text-sm">
+                    &copy; <span id="footer-year">2026</span> <strong class="text-white">Md. Mostakim Billah (Sabbir)</strong>. Crafted for GitHub Pages.
+                </p>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#home" class="text-xs font-mono-code text-gray-400 hover:text-[#58a6ff] flex items-center gap-1 transition-colors">
+                    Back to Top <i class="fa-solid fa-arrow-up"></i>
+                </a>
+                <a href="https://github.com/m-b-sabbirr127" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fa-brands fa-github text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* Strict Allman Formatting for JavaScript */
+
+        // --- Helper: Copy Text to Clipboard (iFrame Safe) ---
+        function copyToClipboard(text, successMsg)
+        {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try
+            {
+                document.execCommand("copy");
+                showToast(successMsg);
+            }
+            catch (err)
+            {
+                showToast("Copied!");
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        // --- Helper: Show Custom Toast Notification ---
+        let toastTimeout = null;
+        function showToast(message)
+        {
+            const container = document.getElementById("toast-container");
+            const msgElem = document.getElementById("toast-message");
+            msgElem.textContent = message;
+            
+            container.classList.remove("opacity-0", "translate-y-4");
+            container.classList.add("opacity-100", "translate-y-0");
+
+            if (toastTimeout)
+            {
+                clearTimeout(toastTimeout);
+            }
+
+            toastTimeout = setTimeout(function()
+            {
+                container.classList.remove("opacity-100", "translate-y-0");
+                container.classList.add("opacity-0", "translate-y-4");
+            }, 2800);
+        }
+
+        // --- Mobile Navigation Menu Toggle ---
+        function initMobileMenu()
+        {
+            const btn = document.getElementById("mobile-menu-btn");
+            const menu = document.getElementById("mobile-menu");
+            const icon = document.getElementById("mobile-menu-icon");
+            const links = document.querySelectorAll(".mobile-nav-link");
+
+            btn.addEventListener("click", function()
+            {
+                const isHidden = menu.classList.contains("hidden");
+                if (isHidden)
+                {
+                    menu.classList.remove("hidden");
+                    icon.classList.remove("fa-bars");
+                    icon.classList.add("fa-xmark");
+                }
+                else
+                {
+                    menu.classList.add("hidden");
+                    icon.classList.remove("fa-xmark");
+                    icon.classList.add("fa-bars");
+                }
+            });
+
+            for (let i = 0; i < links.length; i++)
+            {
+                links[i].addEventListener("click", function()
+                {
+                    menu.classList.add("hidden");
+                    icon.classList.remove("fa-xmark");
+                    icon.classList.add("fa-bars");
+                });
+            }
+        }
+
+        // --- Top Scroll Progress Bar ---
+        function initScrollProgress()
+        {
+            const progressBar = document.getElementById("scroll-progress");
+            window.addEventListener("scroll", function()
+            {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = scrollPercent + "%";
+            });
+        }
+
+        // --- Scroll Reveal Animation ---
+        function initScrollReveal()
+        {
+            const reveals = document.querySelectorAll(".reveal");
+            
+            const observer = new IntersectionObserver(function(entries, obs)
+            {
+                for (let i = 0; i < entries.length; i++)
+                {
+                    const entry = entries[i];
+                    if (entry.isIntersecting)
+                    {
+                        entry.target.classList.add("active");
+                        obs.unobserve(entry.target);
+                    }
+                }
+            },
+            {
+                threshold: 0.08,
+                rootMargin: "0px 0px -40px 0px"
+            });
+
+            for (let i = 0; i < reveals.length; i++)
+            {
+                observer.observe(reveals[i]);
+            }
+        }
+
+        // --- Dynamic Typing Effect in Hero ---
+        const typingRoles = [
+            "Competitive Programmer",
+            "C & C++ Enthusiast",
+            "DSA Problem Solver",
+            "Backend Systems Learner",
+            "Open Source Collaborator"
+        ];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingDelay = 100;
+
+        function typeEffect()
+        {
+            const typingElement = document.getElementById("typing-text");
+            if (!typingElement)
+            {
+                return;
+            }
+
+            const currentRole = typingRoles[roleIndex];
+
+            if (isDeleting)
+            {
+                typingElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+                typingDelay = 45;
+            }
+            else
+            {
+                typingElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+                typingDelay = 110;
+            }
+
+            if (!isDeleting && charIndex === currentRole.length)
+            {
+                isDeleting = true;
+                typingDelay = 1800;
+            }
+            else if (isDeleting && charIndex === 0)
+            {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % typingRoles.length;
+                typingDelay = 400;
+            }
+
+            setTimeout(typeEffect, typingDelay);
+        }
+
+        // --- Tech Stack Category Filter ---
+        function initTechStackFilter()
+        {
+            const buttons = document.querySelectorAll(".stack-filter-btn");
+            const items = document.querySelectorAll("#tech-stack-grid > div");
+
+            for (let i = 0; i < buttons.length; i++)
+            {
+                buttons[i].addEventListener("click", function()
+                {
+                    const filter = this.getAttribute("data-filter");
+
+                    for (let j = 0; j < buttons.length; j++)
+                    {
+                        buttons[j].classList.remove("bg-[#58a6ff]", "text-[#0d1117]", "font-semibold");
+                        buttons[j].classList.add("bg-[#161b22]", "text-gray-300");
+                    }
+
+                    this.classList.remove("bg-[#161b22]", "text-gray-300");
+                    this.classList.add("bg-[#58a6ff]", "text-[#0d1117]", "font-semibold");
+
+                    for (let k = 0; k < items.length; k++)
+                    {
+                        const category = items[k].getAttribute("data-category");
+                        if (filter === "all" || category === filter)
+                        {
+                            items[k].style.display = "flex";
+                        }
+                        else
+                        {
+                            items[k].style.display = "none";
+                        }
+                    }
+                });
+            }
+        }
+
+        // --- Competitive Programming Template Actions ---
+        function initCPActions()
+        {
+            const copyBtn = document.getElementById("copy-cpp-btn");
+            const runBtn = document.getElementById("run-verdict-btn");
+            const statusEl = document.getElementById("verdict-status");
+            const metricsEl = document.getElementById("verdict-metrics");
+
+            const rawCppCode = [
+                "// Md. Mostakim Billah (Sabbir) - CP Fast I/O Template",
+                "#include <iostream>",
+                "#include <vector>",
+                "#include <algorithm>",
+                "",
+                "using namespace std;",
+                "using ll = long long;",
+                "",
+                "void solve_edge_case()",
+                "{",
+                "    ll n;",
+                "    if (!(cin >> n)) return;",
+                "    cout << \"Verdict: Accepted\" << '\\n';",
+                "}",
+                "",
+                "int main()",
+                "{",
+                "    ios::sync_with_stdio(false);",
+                "    cin.tie(nullptr);",
+                "    int t = 1;",
+                "    while (t--)",
+                "    {",
+                "        solve_edge_case();",
+                "    }",
+                "    return 0;",
+                "}"
+            ].join("\n");
+
+            copyBtn.addEventListener("click", function()
+            {
+                copyToClipboard(rawCppCode, "C++ CP Template copied to clipboard!");
+            });
+
+            runBtn.addEventListener("click", function()
+            {
+                statusEl.textContent = "Running on test 1...";
+                statusEl.className = "text-amber-400 font-semibold";
+
+                setTimeout(function()
+                {
+                    statusEl.textContent = "Running on test 42 (Edge Case)...";
+                }, 450);
+
+                setTimeout(function()
+                {
+                    statusEl.textContent = "Accepted (All 64 tests passed!)";
+                    statusEl.className = "text-[#3fb950] font-semibold";
+                    metricsEl.innerHTML = 'Time: <span class="text-[#3fb950]">15 ms</span> | Memory: <span class="text-[#58a6ff]">2048 KB</span>';
+                    showToast("Verdict: Accepted on Codeforces Simulator!");
+                }, 1000);
+            });
+        }
+
+        // --- Project Architecture Modal ---
+        function initProjectModal()
+        {
+            const projectData = {
+                fb: {
+                    title: "mini_fb_model",
+                    updated: "Updated on Aug 21",
+                    link: "https://github.com/m-b-sabbirr127/mini_fb_model",
+                    desc: "A clean frontend layout model designed to emulate core social networking user interfaces, newsfeed cards, and navigation hierarchy.",
+                    features: [
+                        "Built with semantic HTML5 structural components.",
+                        "Focuses on clean layout organization and feed alignment.",
+                        "Lightweight, zero-dependency frontend implementation."
+                    ]
+                },
+                agri: {
+                    title: "agri_gpa_marks_calculator_2025",
+                    updated: "Updated on May 31",
+                    link: "https://github.com/m-b-sabbirr127/agri_gpa_marks_calculator_2025",
+                    desc: "An interactive GPA and admission mark calculation utility tailored specifically for students calculating scores under the 2025 agricultural university cluster system.",
+                    features: [
+                        "Instant calculation of weighted GPA scores and marks.",
+                        "Clear user input fields with instant visual feedback.",
+                        "Accessible on both mobile browsers and desktop screens."
+                    ]
+                },
+                playtime: {
+                    title: "playtime_counter",
+                    updated: "Updated on Feb 22, 2025",
+                    link: "https://github.com/m-b-sabbirr127/playtime_counter",
+                    desc: "A dedicated time-tracking web utility created to monitor active session durations, cumulative playtime, and focused study intervals.",
+                    features: [
+                        "Real-time duration tracking and counter controls.",
+                        "Streamlined dark-friendly interface for distraction-free use.",
+                        "Fast, responsive DOM updates."
+                    ]
+                }
+            };
+
+            const modal = document.getElementById("project-modal");
+            const closeBtn = document.getElementById("close-modal-btn");
+            const titleEl = document.getElementById("modal-title");
+            const descEl = document.getElementById("modal-desc");
+            const featuresEl = document.getElementById("modal-features");
+            const updatedEl = document.getElementById("modal-updated");
+            const linkEl = document.getElementById("modal-link");
+            const btns = document.querySelectorAll(".inspect-project-btn");
+
+            for (let i = 0; i < btns.length; i++)
+            {
+                btns[i].addEventListener("click", function()
+                {
+                    const key = this.getAttribute("data-project");
+                    const info = projectData[key];
+                    if (!info)
+                    {
+                        return;
+                    }
+
+                    titleEl.textContent = info.title;
+                    descEl.textContent = info.desc;
+                    updatedEl.textContent = info.updated;
+                    linkEl.href = info.link;
+
+                    featuresEl.innerHTML = "";
+                    for (let j = 0; j < info.features.length; j++)
+                    {
+                        const li = document.createElement("li");
+                        li.className = "flex items-start gap-2";
+                        li.innerHTML = '<i class="fa-solid fa-check text-[#3fb950] mt-1 text-xs"></i><span>' + info.features[j] + '</span>';
+                        featuresEl.appendChild(li);
+                    }
+
+                    modal.classList.remove("hidden");
+                    modal.classList.add("flex");
+                });
+            }
+
+            closeBtn.addEventListener("click", function()
+            {
+                modal.classList.add("hidden");
+                modal.classList.remove("flex");
+            });
+
+            modal.addEventListener("click", function(e)
+            {
+                if (e.target === modal)
+                {
+                    modal.classList.add("hidden");
+                    modal.classList.remove("flex");
+                }
+            });
+        }
+
+        // --- Interactive CLI Terminal ---
+        function initTerminal()
+        {
+            const form = document.getElementById("terminal-form");
+            const input = document.getElementById("terminal-input");
+            const output = document.getElementById("terminal-output");
+            const quickBtns = document.querySelectorAll(".term-quick-btn");
+
+            function runCommand(rawCmd)
+            {
+                const cmd = rawCmd.trim().toLowerCase();
+                if (!cmd)
+                {
+                    return;
+                }
+
+                if (cmd === "clear")
+                {
+                    output.innerHTML = '<div><span class="text-gray-500">Terminal cleared. Type <span class="text-[#58a6ff]">help</span> for commands.</span></div>';
+                    return;
+                }
+
+                let responseHtml = "";
+
+                if (cmd === "help")
+                {
+                    responseHtml = [
+                        '<span class="text-[#58a6ff]">Available Commands:</span>',
+                        '  <span class="text-[#3fb950]">whoami</span>   - Display academic &amp; developer bio',
+                        '  <span class="text-[#3fb950]">skills</span>   - List core programming languages &amp; stack',
+                        '  <span class="text-[#3fb950]">projects</span> - Show original GitHub repositories',
+                        '  <span class="text-[#3fb950]">cp</span>       - View Competitive Programming platforms',
+                        '  <span class="text-[#3fb950]">funfact</span>  - Reveal a fun fact about debugging',
+                        '  <span class="text-[#3fb950]">clear</span>    - Clear terminal log'
+                    ].join("<br>");
+                }
+                else if (cmd === "whoami" || cmd === "about")
+                {
+                    responseHtml = '&gt; <strong class="text-white">Md. Mostakim Billah (Sabbir)</strong><br>&gt; B.Sc. in CSE at Daffodil International University<br>&gt; Working on DSA, Advanced C++, Dynamic Programming &amp; System Architecture.';
+                }
+                else if (cmd === "skills" || cmd === "stack")
+                {
+                    responseHtml = '&gt; <span class="text-[#58a6ff]">Languages:</span> C, C++ (46.23%), Python, Java, JS, TS, Bash, PowerShell<br>&gt; <span class="text-[#3fb950]">Web &amp; Cloud:</span> HTML5, TailwindCSS, Node.js, Next.js, FastAPI, Firebase, MongoDB, MySQL<br>&gt; <span class="text-[#bc8cff]">Hardware:</span> Arduino, Raspberry Pi';
+                }
+                else if (cmd === "projects")
+                {
+                    responseHtml = '&gt; 1. <span class="text-[#58a6ff]">mini_fb_model</span> (HTML5 Social UI)<br>&gt; 2. <span class="text-[#3fb950]">agri_gpa_marks_calculator_2025</span> (GPA Utility)<br>&gt; 3. <span class="text-[#bc8cff]">playtime_counter</span> (Session Time Tracker)';
+                }
+                else if (cmd === "cp")
+                {
+                    responseHtml = '&gt; Active on <strong class="text-white">Codeforces, BeeCrowd, and Toph</strong>.<br>&gt; Specializing in C/C++, Data Structures, Dynamic Programming &amp; Graph Algorithms.';
+                }
+                else if (cmd === "funfact")
+                {
+                    responseHtml = '&gt; ⚡ <span class="text-[#d29922]">"I can spend hours debugging an edge-case for a single Accepted verdict on Codeforces!"</span>';
+                }
+                else
+                {
+                    responseHtml = '<span class="text-rose-400">Command not found: ' + cmd + '. Type <span class="underline">help</span> for available commands.</span>';
+                }
+
+                const entry = document.createElement("div");
+                entry.innerHTML = '<span class="text-[#3fb950]">sabbir@github:~$</span> ' + rawCmd + '<br><div class="mt-1 text-gray-300">' + responseHtml + '</div>';
+                output.appendChild(entry);
+                output.scrollTop = output.scrollHeight;
+            }
+
+            form.addEventListener("submit", function(e)
+            {
+                e.preventDefault();
+                runCommand(input.value);
+                input.value = "";
+            });
+
+            for (let i = 0; i < quickBtns.length; i++)
+            {
+                quickBtns[i].addEventListener("click", function()
+                {
+                    const cmd = this.getAttribute("data-cmd");
+                    runCommand(cmd);
+                });
+            }
+        }
+
+        // --- 3D Tilt Effect (Desktop Only for Smooth Mobile Touch) ---
+        function initTiltEffect()
+        {
+            if (window.innerWidth < 768)
+            {
+                return;
+            }
+
+            const cards = document.querySelectorAll(".tilt-card");
+            
+            for (let i = 0; i < cards.length; i++)
+            {
+                const card = cards[i];
+                
+                card.addEventListener("mousemove", function(e)
+                {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+                    
+                    card.style.transform = "perspective(1000px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg) scale3d(1.01, 1.01, 1.01)";
+                });
+                
+                card.addEventListener("mouseleave", function()
+                {
+                    card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+                });
+            }
+        }
+
+        // --- Contact & Share Interactions ---
+        function initContactActions()
+        {
+            const copyUrlBtn = document.getElementById("copy-profile-url-btn");
+            const contactForm = document.getElementById("contact-form");
+
+            copyUrlBtn.addEventListener("click", function()
+            {
+                copyToClipboard("https://github.com/m-b-sabbirr127", "GitHub profile URL copied!");
+            });
+
+            contactForm.addEventListener("submit", function(e)
+            {
+                e.preventDefault();
+                const name = document.getElementById("sender-name").value;
+                const topic = document.getElementById("sender-topic").value;
+                const msg = document.getElementById("sender-msg").value;
+
+                const formatted = "Hi Sabbir (@m-b-sabbirr127)! I'm " + name + " reaching out regarding [" + topic + "]: " + msg;
+                copyToClipboard(formatted, "Ping copied! Ready to paste on GitHub or LinkedIn.");
+                contactForm.reset();
+            });
+        }
+
+        // --- Initialize Everything on DOM Ready ---
+        document.addEventListener("DOMContentLoaded", function()
+        {
+            initMobileMenu();
+            initScrollProgress();
+            initScrollReveal();
+            setTimeout(typeEffect, 600);
+            initTechStackFilter();
+            initCPActions();
+            initProjectModal();
+            initTerminal();
+            initTiltEffect();
+            initContactActions();
+        });
+    </script>
+</body>
+</html>
