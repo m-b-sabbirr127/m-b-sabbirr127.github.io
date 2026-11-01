@@ -1,0 +1,403 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md. Mostakim Billah (Sabbir) | Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Strict Allman Formatting for CSS */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+        :root
+        {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border-color: #30363d;
+            --accent-blue: #58a6ff;
+            --accent-green: #238636;
+            --accent-green-light: #3fb950;
+            --accent-purple: #bc8cff;
+            --accent-orange: #d29922;
+        }
+
+        body
+        {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: #c9d1d9;
+            overflow-x: hidden;
+        }
+
+        .font-mono-code
+        {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar
+        {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track
+        {
+            background: #0d1117;
+        }
+
+        ::-webkit-scrollbar-thumb
+        {
+            background: #30363d;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover
+        {
+            background: #58a6ff;
+        }
+
+        /* Subtle Grid Background */
+        .bg-grid-pattern
+        {
+            background-size: 32px 32px;
+            background-image: 
+                linear-gradient(to right, rgba(48, 54, 61, 0.22) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(48, 54, 61, 0.22) 1px, transparent 1px);
+        }
+
+        /* GitHub Dark Theme Utility Classes */
+        .gh-border
+        {
+            border: 1px solid #30363d;
+        }
+
+        .gh-bg-card
+        {
+            background-color: rgba(22, 27, 34, 0.85);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal
+        {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active
+        {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blinking Cursor for Typing Effect */
+        .cursor::after
+        {
+            content: '▋';
+            animation: blink 1s step-start infinite;
+            color: #58a6ff;
+            margin-left: 4px;
+            font-size: 0.9em;
+        }
+
+        @keyframes blink
+        {
+            50%
+            {
+                opacity: 0;
+            }
+        }
+
+        /* Floating Animation for Profile Badges */
+        @keyframes floatSlow
+        {
+            0%, 100%
+            {
+                transform: translateY(0px);
+            }
+            50%
+            {
+                transform: translateY(-8px);
+            }
+        }
+
+        .animate-float-1
+        {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        .animate-float-2
+        {
+            animation: floatSlow 5s ease-in-out infinite 1s;
+        }
+
+        .animate-float-3
+        {
+            animation: floatSlow 4.5s ease-in-out infinite 2s;
+        }
+
+        /* Bento & Card Hover Effects */
+        .bento-item
+        {
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-item:hover
+        {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px -10px rgba(88, 166, 255, 0.22);
+            border-color: #58a6ff;
+        }
+
+        .bento-item::before
+        {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.06), transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+
+        .bento-item:hover::before
+        {
+            left: 100%;
+        }
+
+        /* 3D Tilt Card Base Styles */
+        .tilt-card
+        {
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* Tech Badge Styling */
+        .tech-pill
+        {
+            transition: all 0.25s ease;
+        }
+
+        .tech-pill:hover
+        {
+            transform: translateY(-3px) scale(1.03);
+            border-color: #58a6ff;
+            box-shadow: 0 6px 20px -4px rgba(88, 166, 255, 0.25);
+        }
+
+        /* Custom Toast Notification */
+        #toast-container
+        {
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#58a6ff] selection:text-[#0d1117] bg-grid-pattern">
+
+    <!-- Top Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-[60] bg-transparent">
+        <div id="scroll-progress" class="h-full bg-gradient-to-r from-[#58a6ff] via-[#3fb950] to-[#bc8cff] w-0 transition-all duration-75"></div>
+    </div>
+
+    <!-- Custom Toast Notification (No alert() used) -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[70] pointer-events-none opacity-0 translate-y-4">
+        <div class="gh-bg-card gh-border border-l-4 border-l-[#3fb950] text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-[#3fb950] text-lg"></i>
+            <span id="toast-message" class="text-sm font-medium">Copied to clipboard!</span>
+        </div>
+    </div>
+
+    <!-- Project Architecture Detail Modal -->
+    <div id="project-modal" class="fixed inset-0 z-[65] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+        <div class="gh-bg-card gh-border rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative animate-fadeIn">
+            <button id="close-modal-btn" class="absolute top-5 right-5 w-9 h-9 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-gray-400 hover:text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-4">
+                <div id="modal-icon-box" class="w-11 h-11 rounded-xl bg-blue-500/10 gh-border flex items-center justify-center text-[#58a6ff]">
+                    <i id="modal-icon" class="fa-solid fa-code text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-mono-code uppercase tracking-wider text-[#3fb950] bg-[#238636]/20 px-2 py-0.5 rounded-full">Original Repository</span>
+                    <h3 id="modal-title" class="text-xl font-bold text-white mt-0.5">Project Name</h3>
+                </div>
+            </div>
+            <p id="modal-desc" class="text-gray-300 text-sm leading-relaxed mb-5"></p>
+            <div class="mb-6">
+                <h4 class="text-xs font-mono-code uppercase text-gray-400 mb-2.5">Key Highlights & Specs</h4>
+                <ul id="modal-features" class="space-y-2 text-sm text-gray-300"></ul>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-[#30363d]">
+                <span id="modal-updated" class="text-xs font-mono-code text-gray-400"></span>
+                <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="bg-[#238636] hover:bg-[#2ea043] text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors inline-flex items-center gap-2">
+                    <i class="fa-brands fa-github"></i> Open on GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Responsive Navbar -->
+    <nav class="fixed w-full z-50 top-0 gh-border border-b bg-[#0d1117]/85 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo -->
+                <a href="#home" class="font-bold text-lg sm:text-xl tracking-tight text-white hover:text-[#58a6ff] transition-colors flex items-center gap-2.5">
+                    <div class="relative">
+                        <img src="https://github.com/m-b-sabbirr127.png" onerror="this.src='https://placehold.co/100x100/161b22/58a6ff?text=MB'" alt="Sabbir" class="w-9 h-9 rounded-full gh-border object-cover">
+                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#3fb950] border-2 border-[#0d1117] rounded-full"></span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="leading-none">Sabbir</span>
+                        <span class="text-[11px] font-mono-code text-gray-400 font-normal">@m-b-sabbirr127</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="#home" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">Home</a>
+                    <a href="#about" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">About</a>
+                    <a href="#skills" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">Tech Stack</a>
+                    <a href="#cp" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">CP & Code</a>
+                    <a href="#projects" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">Projects</a>
+                    <a href="#terminal-sec" class="hover:text-white text-gray-300 hover:bg-[#21262d] px-3 py-2 rounded-lg text-sm font-medium transition-colors">Terminal</a>
+                    <a href="#contact" class="ml-2 bg-[#238636] hover:bg-[#2ea043] text-white px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-paper-plane text-xs"></i> Connect
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" aria-label="Toggle Menu" class="text-gray-300 hover:text-white p-2.5 rounded-lg bg-[#161b22] gh-border focus:outline-none">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#161b22] border-b border-[#30363d] px-4 pt-3 pb-5 space-y-2">
+            <a href="#home" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-house w-6 text-[#58a6ff]"></i> Home
+            </a>
+            <a href="#about" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-user-astronaut w-6 text-[#3fb950]"></i> About Me
+            </a>
+            <a href="#skills" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-layer-group w-6 text-[#bc8cff]"></i> Tech Stack & Stats
+            </a>
+            <a href="#cp" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-trophy w-6 text-[#d29922]"></i> Competitive Programming
+            </a>
+            <a href="#projects" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-code-branch w-6 text-[#58a6ff]"></i> Original Projects
+            </a>
+            <a href="#terminal-sec" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium text-gray-200 hover:bg-[#21262d] hover:text-[#58a6ff]">
+                <i class="fa-solid fa-terminal w-6 text-[#3fb950]"></i> Interactive CLI
+            </a>
+            <a href="#contact" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-medium bg-[#238636] text-white text-center mt-2">
+                <i class="fa-solid fa-paper-plane mr-1.5"></i> Connect With Me
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-28 pb-16 md:pt-36 md:pb-24 px-4 sm:px-6 lg:px-8 min-h-[92vh] flex items-center relative overflow-hidden">
+        <!-- Ambient Glow Orbs -->
+        <div class="absolute top-16 left-10 w-72 h-72 sm:w-96 sm:h-96 bg-[#58a6ff]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-12 right-10 w-72 h-72 sm:w-96 sm:h-96 bg-[#238636]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-10 lg:gap-12 relative z-10">
+            
+            <!-- Left Column: Intro & CTAs -->
+            <div class="w-full lg:w-3/5 text-center lg:text-left reveal">
+                <!-- Status Pill -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#161b22] gh-border mb-5 text-xs sm:text-sm text-gray-300">
+                    <span class="w-2 h-2 rounded-full bg-[#3fb950] animate-ping"></span>
+                    <span class="font-mono-code">Open to Open Source & Algorithmic Collaboration</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-3 tracking-tight leading-tight">
+                    Md. Mostakim Billah
+                    <span class="block sm:inline text-[#58a6ff] font-semibold text-2xl sm:text-4xl lg:text-5xl mt-1 sm:mt-0">(Sabbir)</span>
+                </h1>
+                
+                <!-- Dynamic Typing Subheader -->
+                <div class="h-10 sm:h-12 flex items-center justify-center lg:justify-start mb-5">
+                    <h2 class="text-lg sm:text-2xl md:text-3xl text-gray-300 font-medium font-mono-code">
+                        &gt; <span id="typing-text" class="text-[#58a6ff] font-semibold"></span><span class="cursor"></span>
+                    </h2>
+                </div>
+
+                <p class="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto lg:mx-0 mb-6 leading-relaxed">
+                    Passionate about <strong class="text-white">Data Structures & Algorithms</strong>, <strong class="text-white">Advanced C++</strong>, and <strong class="text-white">High-Performance System Architecture</strong>. Relentlessly solving complex problems and crafting clean, efficient code.
+                </p>
+
+                <!-- Education Card Badge (No Semester/CGPA) -->
+                <div class="gh-border border-l-4 border-l-[#3fb950] px-4 py-3 mb-8 bg-[#161b22]/90 rounded-r-xl inline-flex items-center gap-3.5 text-left max-w-full">
+                    <div class="w-10 h-10 rounded-lg bg-[#238636]/20 flex items-center justify-center text-[#3fb950] shrink-0">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm sm:text-base text-white font-semibold">
+                            B.Sc. in Computer Science and Engineering
+                        </p>
+                        <p class="text-xs sm:text-sm text-gray-400">Daffodil International University (DIU)</p>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
+                    <a href="#projects" class="w-full sm:w-auto justify-center bg-[#238636] hover:bg-[#2ea043] text-white font-medium py-3 px-6 rounded-xl transition-all shadow-lg shadow-[#238636]/20 flex items-center gap-2">
+                        <i class="fa-solid fa-code"></i> Explore Projects
+                    </a>
+                    <a href="#terminal-sec" class="w-full sm:w-auto justify-center bg-[#161b22] hover:bg-[#21262d] gh-border text-[#58a6ff] font-mono-code text-sm py-3 px-5 rounded-xl transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-terminal"></i> Launch CLI
+                    </a>
+                    <a href="https://github.com/m-b-sabbirr127" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto justify-center bg-[#21262d] hover:bg-[#30363d] gh-border text-white font-medium py-3 px-5 rounded-xl transition-all flex items-center gap-2">
+                        <i class="fa-brands fa-github text-lg"></i> GitHub Profile
+                    </a>
+                </div>
+
+                <!-- Quick Highlights Strip -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-4 mt-10 pt-8 border-t border-[#30363d]/80 max-w-lg mx-auto lg:mx-0">
+                    <div class="text-center lg:text-left">
+                        <div class="text-xl sm:text-2xl font-bold text-white font-mono-code">C / C++</div>
+                        <div class="text-xs text-gray-400">Core Language</div>
+                    </div>
+                    <div class="text-center lg:text-left border-x border-[#30363d] px-2 sm:px-4">
+                        <div class="text-xl sm:text-2xl font-bold text-[#3fb950] font-mono-code">DSA &amp; CP</div>
+                        <div class="text-xs text-gray-400">Primary Focus</div>
+                    </div>
+                    <div class="text-center lg:text-left">
+                        <div class="text-xl sm:text-2xl font-bold text-[#58a6ff] font-mono-code">20+</div>
+                        <div class="text-xs text-gray-400">Tools &amp; Tech</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Avatar & Floating Tech Badges -->
+            <div class="w-full lg:w-2/5 flex justify-center reveal">
+                <div class="relative group">
+                    <!-- Animated Glow Ring -->
+                    <div class="absolute -inset-1.5 bg-gradient-to-tr from-[#58a6ff] via-[#3fb950] to-[#bc8cff] rounded-full blur-md opacity-40 group-hover:opacity-75 transition duration-700"></div>
+                    
+                    <!-- Main Avatar Image -->
+                    <img src="https://github.com/m-b-sabbirr127.png" 
+                         onerror="this.src='https://placehold.co/400x400/161b22/58a6ff?text=Sabbir'" 
+                         alt="Md. Mostakim Billah (Sabbir)" 
+                         class="relative w-52 h-52 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full gh-border border-4 border-[#161b22] shadow-2xl object-cover">
+
+                    <!-- Floating Badge 1: C++ -->
+                    <div class="animate-float-1 absolute -top-2 -left-4 sm:left-0 gh-bg-card gh-border px-3 py-1.5 rounded-xl shadow-xl flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-[#58a6ff]"></i>
+                        <span class="te
